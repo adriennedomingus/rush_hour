@@ -17,6 +17,8 @@ class PayloadRequestTest < MiniTest::Test
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"
     }
+    require "pry"
+    binding.pry
 
     #Something to connect to test database?
 
