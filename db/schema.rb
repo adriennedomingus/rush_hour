@@ -11,47 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209184814) do
+ActiveRecord::Schema.define(version: 20160209221744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "environments", force: :cascade do |t|
+    t.string "browser"
+    t.string "os"
+  end
+
+  create_table "event_names", force: :cascade do |t|
+    t.string "event"
+  end
+
   create_table "ips", force: :cascade do |t|
-    t.string "ip_address"
+    t.string "address"
   end
 
   create_table "payload_requests", force: :cascade do |t|
-    t.string  "requestedAt"
-    t.integer "respondedIn"
-    t.string  "parameters"
-    t.string  "eventName"
-    t.integer "urlId"
-    t.integer "referralId"
-    t.integer "requestTypeId"
-    t.integer "userAgentId"
-    t.integer "resolutionId"
-    t.integer "ipId"
+    t.string  "requested_at"
+    t.integer "responded_in"
+    t.integer "url_id"
+    t.integer "ip_id"
+    t.integer "event_name_id"
+    t.integer "environment_id"
+    t.integer "request_type_id"
+    t.integer "referral_id"
+    t.integer "resolution_id"
   end
 
   create_table "referrals", force: :cascade do |t|
-    t.string "referredBy"
+    t.string "path"
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.string "requestType"
+    t.string "verb"
   end
 
   create_table "resolutions", force: :cascade do |t|
-    t.string "resolutionHeight"
-    t.string "resolutionWidth"
+    t.string "height"
+    t.string "width"
   end
 
   create_table "urls", force: :cascade do |t|
-    t.string "url_name"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.string "userAgent"
+    t.string "path"
   end
 
 end
