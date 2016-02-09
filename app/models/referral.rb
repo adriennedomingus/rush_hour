@@ -1,3 +1,3 @@
 class Referral < ActiveRecord::Base
-  has_many :payloads
+  has_many :payload_requests
 end
