@@ -5,6 +5,7 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'database_cleaner'
+gem 'rake'
 
 group :development, :test do
   gem 'shotgun'
