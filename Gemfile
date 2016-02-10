@@ -7,7 +7,7 @@ gem 'sinatra-activerecord'
 gem 'database_cleaner'
 gem 'rake'
 gem 'pry'
-# gem 'useragent'
+gem 'useragent'
 
 group :development, :test do
   gem 'shotgun'
