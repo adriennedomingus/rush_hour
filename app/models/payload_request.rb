@@ -50,14 +50,18 @@ class PayloadRequest < ActiveRecord::Base
     all_verbs
   end
 
+  # def self.all_urls_in_order
+  #   all_urls = []
+  #   all.each do |payload_request|
+  #     all_urls << payload_request.url.path
+  #   end
+  #   all_urls.group_by { |url| url }.map do |key, value|
+  #     [key, value.count]
+  #   end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
+  # end
+
   def self.all_urls_in_order
-    all_urls = []
-    all.each do |payload_request|
-      all_urls << payload_request.url.path
-    end
-    all_urls.group_by { |url| url }.map do |key, value|
-      [key, value.count]
-    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
+    # group(:id, :url_id)
   end
 
   def self.all_event_names
