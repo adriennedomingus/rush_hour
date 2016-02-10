@@ -25,12 +25,12 @@ class Url < ActiveRecord::Base
   end
 
   def top_referrers
-    ref_ids = self.payload_requests.pluck(:referral_id)
-    id_count = ref_ids.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
-    id_count_desc = id_count.sort_by {|k, v| v}.reverse.to_h
-    top_ids = id_count_desc.keys[0,3]
-    refs = Referral.find(top_ids)
-    refs.map {|ref| ref[:path]}
+    all_referrers = self.payload_requests.group(:id).order('referral_id ASC').map do |payload_request|
+      payload_request.referral.path
+    end.group_by { |url| url }.map do |key, value|
+      [key, value.count]
+    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
+    all_referrers[0,3]
   end
 
   def top_user_agents

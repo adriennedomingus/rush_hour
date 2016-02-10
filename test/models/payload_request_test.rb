@@ -246,7 +246,7 @@ class PayloadRequestTest < MiniTest::Test
 
   def test_all_paths_in_order
     payload = {
-      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
       requested_at:  "2013-02-16 21:38:28 -0700",
       responded_in:  45,
       referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
@@ -257,7 +257,7 @@ class PayloadRequestTest < MiniTest::Test
       ip: Ip.find_or_create_by(address: "63.29.38.211")}
 
     payload2 = {
-      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
+      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
       requested_at:  "2013-02-16 21:38:28 -0700",
       responded_in:  15,
       referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),

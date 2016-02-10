@@ -51,6 +51,31 @@ class UrlTest < MiniTest::Test
     ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
 
+  def payload5
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+    requested_at:  "2013-02-16 20:00:00 -0700",
+    responded_in:  30,
+    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
+    request_type:  RequestType.find_or_create_by(verb: "POST"),
+    event_name:    EventName.find_or_create_by(event: "socialLogin"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
+  end
+
+  def payload6
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+    requested_at:  "2013-02-16 20:00:00 -0700",
+    responded_in:  30,
+    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
+    request_type:  RequestType.find_or_create_by(verb: "POST"),
+    event_name:    EventName.find_or_create_by(event: "socialLogin"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
+  end
+
+
   def test_max_response_time
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
@@ -96,12 +121,16 @@ class UrlTest < MiniTest::Test
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
     PayloadRequest.create(payload4)
+    PayloadRequest.create(payload5)
+    PayloadRequest.create(payload6)
+
+
 
     url = Url.find(1)
 
     assert_equal 3, url.top_referrers.count
-    assert_equal ["http://jumpstartlab.com", "http://jumpstartlab.com/home",
-      "http://jumpstartlab.com/contact"], url.top_referrers
+    assert_equal ["http://jumpstartlab.com/contact", "http://jumpstartlab.com/home",
+      "http://jumpstartlab.com"], url.top_referrers
   end
 
   def top_user_agents
