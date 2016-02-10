@@ -4,15 +4,15 @@ class UrlTest < MiniTest::Test
   include TestHelpers
 
   def payload1
-    {url:           Url.create(path: "http://jumpstartlab.com/blog"),
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
     requested_at:  "2013-02-16 21:38:28 -0700",
     responded_in:  37,
-    referral:   Referral.create(path: "http://jumpstartlab.com"),
-    request_type:  RequestType.create(verb: "GET"),
-    event_name:    EventName.create(event: "socialLogin"),
-    environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
-    resolution:    Resolution.create(width: "1080", height: "9000"),
-    ip: Ip.create(address: "63.29.38.211")}
+    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
+    request_type:  RequestType.find_or_create_by(verb: "GET"),
+    event_name:    EventName.find_or_create_by(event: "socialLogin"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
 
   def payload2
@@ -24,7 +24,7 @@ class UrlTest < MiniTest::Test
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
     environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.create(address: "63.29.38.211")}
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
 
   def payload3
@@ -36,7 +36,7 @@ class UrlTest < MiniTest::Test
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
     environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Safari"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.create(address: "63.29.38.211")}
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
 
   def payload4
@@ -48,7 +48,7 @@ class UrlTest < MiniTest::Test
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
     environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.create(address: "63.29.38.211")}
+    ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
 
   def test_max_response_time
