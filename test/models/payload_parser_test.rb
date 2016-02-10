@@ -36,6 +36,7 @@ class PayloadParserTest < MiniTest::Test
     assert_equal nil, payload_hash[:parameters]
     assert_equal EventName, payload_hash[:event_name].class
     assert_equal "socialLogin", payload_hash[:event_name].event
+    assert_equal Environment, payload_hash[:environment].class
     assert_equal "OS X 10.8.2", payload_hash[:environment].os
     assert_equal "Chrome", payload_hash[:environment].browser
     assert_equal Resolution, payload_hash[:resolution].class
