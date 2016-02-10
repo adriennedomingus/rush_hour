@@ -49,26 +49,21 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   # def self.all_urls_in_order
-  #   all_urls = []
-  #   all.each do |payload_request|
-  #     all_urls << payload_request.url.path
-  #   end
-  #   all_urls.group_by { |url| url }.map do |key, value|
+  #   group(:id).order('url_id ASC').map do |payload_request|
+  #     payload_request.url.path
+  #   end.group_by { |url| url }.map do |key, value|
   #     [key, value.count]
   #   end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
   # end
 
   def self.all_urls_in_order
-    group(:id).order('url_id ASC').map do |payload_request|
-      payload_request.url.path
-    end.group_by { |url| url }.map do |key, value|
-      [key, value.count]
-    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
+    url_ids = pluck(:url_id)
+    id_count = url_ids.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
+    id_count_desc = id_count.sort_by {|k, v| v}.reverse.to_h
+    top_ids = id_count_desc.keys
+    urls = Url.find(top_ids)
+    urls.map {|url| url[:path]}
   end
-
-  # def self.all_urls_in_order
-  #   group(:id).order('url_id ASC').count(:url_id)
-  # end
 
   def self.all_event_names
     #MESSAGE WHEN NONE ARE DEFINED
