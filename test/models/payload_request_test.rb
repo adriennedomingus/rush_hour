@@ -245,9 +245,8 @@ class PayloadRequestTest < MiniTest::Test
   end
 
   def test_all_paths_in_order
-    skip
     payload = {
-      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
+      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
       requested_at:  "2013-02-16 21:38:28 -0700",
       responded_in:  45,
       referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
@@ -258,7 +257,7 @@ class PayloadRequestTest < MiniTest::Test
       ip: Ip.find_or_create_by(address: "63.29.38.211")}
 
     payload2 = {
-      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+      url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
       requested_at:  "2013-02-16 21:38:28 -0700",
       responded_in:  15,
       referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
@@ -335,7 +334,7 @@ class PayloadRequestTest < MiniTest::Test
       referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
       request_type:  RequestType.find_or_create_by(verb: "GET"),
       event_name:    EventName.find_or_create_by(event: "otherEvent"),
-      environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Safari"),
+      environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
       resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
       ip: Ip.find_or_create_by(address: "63.29.38.211")}
 
@@ -357,7 +356,7 @@ class PayloadRequestTest < MiniTest::Test
         referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
         request_type:  RequestType.find_or_create_by(verb: "PUT"),
         event_name:    EventName.find_or_create_by(event: "socialLogin"),
-        environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+        environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Safari"),
         resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
         ip: Ip.find_or_create_by(address: "63.29.38.211")}
 
