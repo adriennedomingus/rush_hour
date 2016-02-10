@@ -9,8 +9,8 @@ class CreateClientTest < Minitest::Test
     Server
   end
 
-  def test_successful_request
-    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}.to_json
-  end
+  # def test_successful_request
+  #   post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}.to_json
+  # end
 
 end
