@@ -43,11 +43,9 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.all_http_verbs
-    all_verbs = []
-    all.each do |payload_request|
-      all_verbs << payload_request.request_type.verb
-    end
-    all_verbs
+    verb_ids = pluck(:request_type_id)
+    reqs = RequestType.find(verb_ids)
+    reqs.map {|req| req[:verb]}
   end
 
   # def self.all_urls_in_order

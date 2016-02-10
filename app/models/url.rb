@@ -5,11 +5,11 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
 
   def max_response_time
-    self.payload_requests.maximum(:responded_in)
+    self.payload_requests.maximum_response_time
   end
 
   def min_response_time
-    self.payload_requests.minimum(:responded_in)
+    self.payload_requests.minimum_response_time
   end
 
   def response_times
@@ -17,13 +17,11 @@ class Url < ActiveRecord::Base
   end
 
   def avg_response_time
-    self.payload_requests.average(:responded_in)
+    self.payload_requests.average_response_time
   end
 
   def verbs
-    verb_ids = self.payload_requests.pluck(:request_type_id)
-    reqs = RequestType.find(verb_ids)
-    reqs.map {|req| req[:verb]}
+    self.payload_requests.all_http_verbs
   end
 
   def top_referrers
