@@ -27,6 +27,8 @@ class PayloadRequestTest < MiniTest::Test
     assert_equal "OS X 10.5.3", payload_request.environment.os
     assert_equal "Chrome", payload_request.environment.browser
     assert_equal "63.29.38.211", payload_request.ip.address
+    assert_equal "1080", payload_request.resolution.width
+    assert_equal "9000", payload_request.resolution.height
   end
 
   def test_validation_works_with_missing_attribute
@@ -131,8 +133,36 @@ class PayloadRequestTest < MiniTest::Test
 
       assert_equal 45, PayloadRequest.maximum_response_time
   end
-
   def test_minimum_response_time
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+
+      assert_equal 15, PayloadRequest.minimum_response_time
+  end
+
+  def test_most_frequent_request_type
     payload = {
       url:           Url.create(path: "http://jumpstartlab.com/blog"),
       requested_at:  "2013-02-16 21:38:28 -0700",
@@ -212,5 +242,210 @@ class PayloadRequestTest < MiniTest::Test
       PayloadRequest.create(payload3)
 
       assert_equal ["GET", "POST", "PUT"], PayloadRequest.all_http_verbs
+  end
+
+  def test_all_paths_in_order
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/about"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      payload3 = {
+        url:           Url.create(path: "http://jumpstartlab.com/about"),
+        requested_at:  "2013-02-16 21:38:28 -0700",
+        responded_in:  15,
+        referral:   Referral.create(path: "http://jumpstartlab.com"),
+        request_type:  RequestType.create(verb: "PUT"),
+        event_name:    EventName.create(event: "socialLogin"),
+        environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+        resolution:    Resolution.create(width: "1080", height: "9000"),
+        ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+      PayloadRequest.create(payload3)
+
+      assert_equal ["http://jumpstartlab.com/about", "http://jumpstartlab.com/blog"], PayloadRequest.all_urls_in_order
+  end
+
+  def test_all_events_in_order
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/about"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "otherEvent"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      payload3 = {
+        url:           Url.create(path: "http://jumpstartlab.com/about"),
+        requested_at:  "2013-02-16 21:38:28 -0700",
+        responded_in:  15,
+        referral:   Referral.create(path: "http://jumpstartlab.com"),
+        request_type:  RequestType.create(verb: "PUT"),
+        event_name:    EventName.create(event: "socialLogin"),
+        environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+        resolution:    Resolution.create(width: "1080", height: "9000"),
+        ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+      PayloadRequest.create(payload3)
+
+      assert_equal ["socialLogin", "otherEvent"], PayloadRequest.all_event_names
+  end
+
+  def test_all_browsers_in_order
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "otherEvent"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/about"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      payload3 = {
+        url:           Url.create(path: "http://jumpstartlab.com/about"),
+        requested_at:  "2013-02-16 21:38:28 -0700",
+        responded_in:  15,
+        referral:   Referral.create(path: "http://jumpstartlab.com"),
+        request_type:  RequestType.create(verb: "PUT"),
+        event_name:    EventName.create(event: "socialLogin"),
+        environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+        resolution:    Resolution.create(width: "1080", height: "9000"),
+        ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+      PayloadRequest.create(payload3)
+
+      assert_equal ["Safari", "Chrome"], PayloadRequest.all_browsers_in_order
+  end
+
+  def test_all_os_in_order
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "otherEvent"),
+      environment:    Environment.create(os: "OS X 10.6.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/about"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      payload3 = {
+        url:           Url.create(path: "http://jumpstartlab.com/about"),
+        requested_at:  "2013-02-16 21:38:28 -0700",
+        responded_in:  15,
+        referral:   Referral.create(path: "http://jumpstartlab.com"),
+        request_type:  RequestType.create(verb: "PUT"),
+        event_name:    EventName.create(event: "socialLogin"),
+        environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+        resolution:    Resolution.create(width: "1080", height: "9000"),
+        ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+      PayloadRequest.create(payload3)
+
+      assert_equal ["OS X 10.5.3", "OS X 10.6.3"], PayloadRequest.all_os_in_order
+  end
+
+  def test_all_screen_resolutions_in_order
+    payload = {
+      url:           Url.create(path: "http://jumpstartlab.com/blog"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  45,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "GET"),
+      event_name:    EventName.create(event: "otherEvent"),
+      environment:    Environment.create(os: "OS X 10.6.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1080", height: "9000"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+    payload2 = {
+      url:           Url.create(path: "http://jumpstartlab.com/about"),
+      requested_at:  "2013-02-16 21:38:28 -0700",
+      responded_in:  15,
+      referral:   Referral.create(path: "http://jumpstartlab.com"),
+      request_type:  RequestType.create(verb: "POST"),
+      event_name:    EventName.create(event: "socialLogin"),
+      environment:    Environment.create(os: "OS X 10.5.3", browser: "Safari"),
+      resolution:    Resolution.create(width: "1136", height: "640"),
+      ip: Ip.create(address: "63.29.38.211")}
+
+      payload3 = {
+        url:           Url.create(path: "http://jumpstartlab.com/about"),
+        requested_at:  "2013-02-16 21:38:28 -0700",
+        responded_in:  15,
+        referral:   Referral.create(path: "http://jumpstartlab.com"),
+        request_type:  RequestType.create(verb: "PUT"),
+        event_name:    EventName.create(event: "socialLogin"),
+        environment:    Environment.create(os: "OS X 10.5.3", browser: "Chrome"),
+        resolution:    Resolution.create(width: "1080", height: "9000"),
+        ip: Ip.create(address: "63.29.38.211")}
+
+      PayloadRequest.create(payload)
+      PayloadRequest.create(payload2)
+      PayloadRequest.create(payload3)
+
+      assert_equal ["1080 x 9000", "1136 x 640"], PayloadRequest.all_screen_resolutions_in_order
   end
 end
