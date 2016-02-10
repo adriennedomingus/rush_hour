@@ -3,10 +3,5 @@ module RushHour
     not_found do
       erb :error
     end
-
-    post '/sources/:identifier/data' do
-
-  end
-
   end
 end
