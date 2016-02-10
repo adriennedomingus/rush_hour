@@ -68,6 +68,10 @@ class PayloadRequest < ActiveRecord::Base
     end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
   end
 
+  # def self.all_urls_in_order
+  #   group(:id).order('url_id ASC').count(:url_id)
+  # end
+
   def self.all_event_names
     #MESSAGE WHEN NONE ARE DEFINED
     group(:id).order('event_name_id ASC').map do |payload_request|
