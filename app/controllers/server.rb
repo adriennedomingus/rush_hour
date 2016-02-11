@@ -5,36 +5,21 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-
-
+      payload = PayloadRequest.create(PayloadParser(params[:payload]).payload_hash)
 
       unique_key = Digest::SHA1.hexdigest(params[:payload])
       #add in hexdigest validation to payload parser
-      parsed_payload = PayloadParser.new(params[:payload]).payload_hash
-      payload = PayloadRequest.create(parsed_payload)
 
       if payload.save
         status 200
         "Thanks for the payload #{identifier}!"
       end
-
-
     end
 
     post '/sources' do
-      data = {:root_url => params[:rootUrl],
-              :identifier => params[:identifier]}
-      client = Client.new(data)
-      if client.save
-        status 200
-        body "{\"identifier\":\"#{client.identifier}\"}"
-      elsif client.errors.full_messages.include?("Identifier has already been taken")
-        status 403
-        body client.errors.full_messages.join(", ")
-      else
-        status 400
-        body client.errors.full_messages.join(", ")
-      end
+      the_status, the_body = ClientParser.new(params).parse_paths
+      status the_status
+      body the_body
     end
   end
 end
