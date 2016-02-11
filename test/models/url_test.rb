@@ -40,7 +40,7 @@ class UrlTest < MiniTest::Test
   end
 
   def payload4
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com"),
     requested_at:  "2013-02-16 20:00:00 -0700",
     responded_in:  30,
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
@@ -52,7 +52,7 @@ class UrlTest < MiniTest::Test
   end
 
   def payload5
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
     requested_at:  "2013-02-16 20:00:00 -0700",
     responded_in:  30,
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
@@ -64,7 +64,7 @@ class UrlTest < MiniTest::Test
   end
 
   def payload6
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
+    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
     requested_at:  "2013-02-16 20:00:00 -0700",
     responded_in:  30,
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
@@ -145,4 +145,18 @@ class UrlTest < MiniTest::Test
     assert_equal 3, url.top_user_agents.count
     # assert_equal browser? OS? both?
   end
+
+  # def test_top_urls_in_order
+  #   PayloadRequest.create(payload1)
+  #   PayloadRequest.create(payload2)
+  #   PayloadRequest.create(payload3)
+  #   PayloadRequest.create(payload4)
+  #   PayloadRequest.create(payload5)
+  #   PayloadRequest.create(payload6)
+  #
+  #   result = ["http://jumpstartlab.com/blog", "http://jumpstartlab.com/about", "http://jumpstartlab.com"]
+  #
+  #   assert_equal result, Url.most_frequent_url_visited
+  # end
+
 end
