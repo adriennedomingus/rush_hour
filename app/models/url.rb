@@ -38,8 +38,10 @@ class Url < ActiveRecord::Base
     joins(:payload_requests).group("urls.id", :path).order(count: :desc, path: :asc).count.keys.map do |path|
       path[1]
     end
+  end
 
   def top_user_agents
+    #KEEP PLAYING WITH THIS
     all_envs = self.payload_requests.group(:id).order('environment_id ASC').map do |payload_request|
       payload_request.environment
     end.group_by { |url| url }.map do |key, value|
