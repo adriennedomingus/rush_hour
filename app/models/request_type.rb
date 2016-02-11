@@ -4,9 +4,7 @@ class RequestType < ActiveRecord::Base
   has_many :payload_requests
 
   def self.in_order
-    joins(:payload_requests).group("request_types.id", :verb).order(count: :desc, verb: :asc).count.keys.map do |verb|
-      verb[1]
-    end
+    joins(:payload_requests).group("request_types.verb").order(count: :desc).count.keys
   end
 
   def self.most_frequent

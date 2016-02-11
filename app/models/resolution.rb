@@ -3,9 +3,9 @@ class Resolution < ActiveRecord::Base
   has_many :payload_requests
 
   def self.all_resolutions
-    all = joins(:payload_requests).group("resolutions.id", :width, :height).order(count: :desc, width: :asc, height: :asc).count
-    all.keys.map do |resolution|
-      "#{resolution[1]} x #{resolution[2]}"
+    all = joins(:payload_requests).group("resolutions.width", "resolutions.height").count.keys
+    all.map do |width, height|
+      "#{width} x #{height}"
     end
   end
 end

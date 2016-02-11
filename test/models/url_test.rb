@@ -22,7 +22,7 @@ class UrlTest < MiniTest::Test
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
     request_type:  RequestType.find_or_create_by(verb: "POST"),
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
     ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
@@ -132,7 +132,6 @@ class UrlTest < MiniTest::Test
   end
 
   def test_top_user_agents
-    skip
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
@@ -142,7 +141,7 @@ class UrlTest < MiniTest::Test
 
     url = Url.find(1)
 
-    assert_equal 3, url.top_user_agents.count
+    # assert_equal 3, url.top_user_agents.count
     assert_equal ["Chrome, OS X 10.5.3", "Firefox, OS X 10.5.3", "Safari, OS X 10.5.3"], url.top_user_agents
   end
 

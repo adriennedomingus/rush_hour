@@ -4,8 +4,6 @@ class EventName < ActiveRecord::Base
   has_many :payload_requests
 
   def self.in_order
-    joins(:payload_requests).group("event_names.id", :event).order(count: :desc, event: :asc).count.keys.map do |event|
-      event[1]
-    end
+    joins(:payload_requests).group("event_names.event").order(count: :desc).count.keys
   end
 end

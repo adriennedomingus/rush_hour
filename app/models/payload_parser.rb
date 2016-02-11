@@ -6,7 +6,6 @@ class PayloadParser
     @payload = payload
     parsed_payload = JSON.parse(payload)
     payload_into_hash(parsed_payload, identifier)
-    @identifier = identifier
   end
 
   def parse_user_agent(user_agent)
@@ -25,6 +24,6 @@ class PayloadParser
       :resolution   => Resolution.find_or_create_by(width: parsed_payload["resolutionWidth"], height: parsed_payload["resolutionHeight"]),
       :ip           => Ip.find_or_create_by(address: parsed_payload["ip"]),
       :client       => Client.find_by(identifier: identifier),
-      :sha        => Digest::SHA1.hexdigest(@payload)}
+      :sha          => Digest::SHA1.hexdigest(@payload)}
   end
 end

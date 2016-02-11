@@ -30,21 +30,4 @@ class PayloadRequest < ActiveRecord::Base
   def self.minimum_response_time
     minimum(:responded_in)
   end
-
-
-  def self.all_browsers_in_order
-    group(:id).order('environment_id ASC').map do |payload_request|
-      payload_request.environment.browser
-    end.group_by { |browser| browser }.map do |key, value|
-      [key, value.count]
-    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
-  end
-
-  def self.all_os_in_order
-    group(:id).order('environment_id ASC').map do |payload_request|
-      payload_request.environment.os
-    end.group_by { |os| os }.map do |key, value|
-      [key, value.count]
-    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
-  end
 end

@@ -76,7 +76,6 @@ class EnvironmentTest < MiniTest::Test
   end
 
   def test_all_browsers_in_order
-    skip
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
@@ -84,13 +83,12 @@ class EnvironmentTest < MiniTest::Test
     PayloadRequest.create(payload5)
     PayloadRequest.create(payload6)
 
-    result = ["Chrome", "Safari", "Firefox"]
+    result = ["Chrome",  "Firefox", "Safari"]
 
-    assert_equal result, Environment.browsers_in_order
+    assert_equal result, Environment.browsers
   end
 
   def test_all_os_in_order
-    skip
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
@@ -100,6 +98,6 @@ class EnvironmentTest < MiniTest::Test
 
     result = ["OS X 10.5.3", "OS X 10.6.3"]
 
-    assert_equal result, Environment.os_in_order
+    assert_equal result, Environment.os
   end
 end

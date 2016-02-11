@@ -44,7 +44,7 @@ class ResolutionTest < MiniTest::Test
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
 
-    result = ["1136 x 640", "1080 x 9000"]
+    result = ["1080 x 9000", "1136 x 640"]
 
     assert_equal result, Resolution.all_resolutions
   end

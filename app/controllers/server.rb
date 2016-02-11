@@ -5,8 +5,8 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      payload_parser = PayloadParser.new(params[:payload], identifier).payload_hash
-      payload = PayloadRequest.new(payload_parser)
+      parsed_payload = PayloadParser.new(params[:payload], identifier).payload_hash
+      payload = PayloadRequest.new(parsed_payload)
 
       if PayloadRequest.find_by(sha: payload.sha)
         status 403
@@ -29,5 +29,5 @@ module RushHour
       body the_body
     end
   end
-  
+
 end
