@@ -58,7 +58,7 @@ class UrlTest < MiniTest::Test
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
     request_type:  RequestType.find_or_create_by(verb: "POST"),
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
     ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
@@ -124,8 +124,6 @@ class UrlTest < MiniTest::Test
     PayloadRequest.create(payload5)
     PayloadRequest.create(payload6)
 
-
-
     url = Url.find(1)
 
     assert_equal 3, url.top_referrers.count
@@ -133,16 +131,22 @@ class UrlTest < MiniTest::Test
       "http://jumpstartlab.com"], url.top_referrers
   end
 
+<<<<<<< HEAD
   def top_user_agents
+=======
+  def test_top_user_agents
+>>>>>>> july_weds
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
     PayloadRequest.create(payload3)
     PayloadRequest.create(payload4)
+    PayloadRequest.create(payload5)
+    PayloadRequest.create(payload6)
 
     url = Url.find(1)
 
     assert_equal 3, url.top_user_agents.count
-    # assert_equal browser? OS? both?
+    assert_equal ["Chrome, OS X 10.5.3", "Firefox, OS X 10.5.3", "Safari, OS X 10.5.3"], url.top_user_agents
   end
 
   def test_top_urls_in_order
