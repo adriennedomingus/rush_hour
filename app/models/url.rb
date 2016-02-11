@@ -1,6 +1,5 @@
 class Url < ActiveRecord::Base
-  validates :path,
-  presence: true
+  validates :path,  presence: true
 
   has_many :payload_requests
 
@@ -21,6 +20,7 @@ class Url < ActiveRecord::Base
   end
 
   def verbs
+    #WE DON'T WANT TO USE THIS METHOD ANYMORE...??
     self.payload_requests.all_http_verbs
   end
 
@@ -33,12 +33,18 @@ class Url < ActiveRecord::Base
     all_referrers[0,3]
   end
 
-  def top_user_agents
-    env_ids = self.payload_requests.pluck(:environment_id)
-    id_count = env_ids.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
-    id_count_desc = id_count.sort_by {|k, v| v}.reverse.to_h
-    top_ids = id_count_desc.keys[0,3]
-    envs = Environment.find(top_ids)
-    # envs.map {|env| env[:browser]} env[:os] ??
+  # def top_user_agents
+  #   env_ids = self.payload_requests.pluck(:environment_id)
+  #   id_count = env_ids.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
+  #   id_count_desc = id_count.sort_by {|k, v| v}.reverse.to_h
+  #   top_ids = id_count_desc.keys[0,3]
+  #   envs = Environment.find(top_ids)
+  #   # envs.map {|env| env[:browser]} env[:os] ??
+  # end
+
+  def self.in_order
+    joins(:payload_requests).group("urls.id", :path).order(count: :desc, path: :asc).count.keys.map do |path|
+      path[1]
+    end
   end
 end
