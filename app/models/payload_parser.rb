@@ -4,7 +4,7 @@ class PayloadParser
 
   def initialize(payload, identifier)
     parsed_payload = JSON.parse(payload)
-    payload_into_hash(parsed_payload)
+    payload_into_hash(parsed_payload, identifier)
     @identifier = identifier
   end
 
