@@ -34,11 +34,11 @@ class Url < ActiveRecord::Base
   end
 
   def top_user_agents
-    env_ids = self.payload_requests.pluck(:environment_id)
-    id_count = env_ids.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
-    id_count_desc = id_count.sort_by {|k, v| v}.reverse.to_h
-    top_ids = id_count_desc.keys[0,3]
-    envs = Environment.find(top_ids)
-    # envs.map {|env| env[:browser]} env[:os] ??
+    all_envs = self.payload_requests.group(:id).order('environment_id ASC').map do |payload_request|
+      payload_request.environment
+    end.group_by { |url| url }.map do |key, value|
+      [key, value.count]
+    end.sort_by { |key, value| value}.reverse.map { |totals| totals[0] }
+    all_envs.map {|env| "#{env.browser}, #{env.os}"}[0,3]
   end
 end
