@@ -4,7 +4,20 @@ module RushHour
       erb :error
     end
 
-    post '/sources/:identifier/data' do
+    post '/sources/:identifier/data' do |identifier|
+
+
+
+      unique_key = Digest::SHA1.hexdigest(params[:payload])
+      #add in hexdigest validation to payload parser
+      parsed_payload = PayloadParser.new(params[:payload]).payload_hash
+      payload = PayloadRequest.create(parsed_payload)
+
+      if payload.save
+        status 200
+        "Thanks for the payload #{identifier}!"
+      end
+
 
     end
 
