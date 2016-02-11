@@ -20,8 +20,9 @@ class Url < ActiveRecord::Base
   end
 
   def verbs
-    #WE DON'T WANT TO USE THIS METHOD ANYMORE...??
-    self.payload_requests.all_http_verbs
+    verb_ids = self.payload_requests.pluck(:request_type_id)
+    reqs = RequestType.find(verb_ids)
+    reqs.map {|req| req[:verb]}
   end
 
   def top_referrers

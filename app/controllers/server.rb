@@ -4,9 +4,13 @@ module RushHour
       erb :error
     end
 
-    post '/sources/:identifier/data' do
-      # client = Client.find_by(:identifier => :identifier)
-      # payload = Payload.create(PayloadParser(params))
+    post '/sources/:identifier/data' do |identifier|
+      require "pry"
+      binding.pry
+      # :identifier => identifier
+      # client = Client.find_by(:identifier => identifier)
+      payload = PayloadRequest.create(PayloadParser(params[:payload]).payload_hash)
+        #can we make the payolad parser take the identifier too?
       #payload.client_id = client
     end
 

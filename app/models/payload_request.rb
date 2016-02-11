@@ -43,12 +43,12 @@ class PayloadRequest < ActiveRecord::Base
   #   highest[0]
   # end
 
-  def self.all_http_verbs
-    #THIS METHOD ONLY STILL EXISTS BECAUSE IT'S USED IN THE URL VERSION
-    verb_ids = pluck(:request_type_id)
-    reqs = RequestType.find(verb_ids)
-    reqs.map {|req| req[:verb]}
-  end
+  # def self.all_http_verbs
+  #   #THIS METHOD ONLY STILL EXISTS BECAUSE IT'S USED IN THE URL VERSION
+  #   verb_ids = pluck(:request_type_id)
+  #   reqs = RequestType.find(verb_ids)
+  #   reqs.map {|req| req[:verb]}
+  # end
 
   # def self.all_urls_in_order
   #   group(:id).order('url_id ASC').map do |payload_request|
