@@ -142,7 +142,7 @@ class UrlTest < MiniTest::Test
 
     url = Url.find(1)
 
-    # assert_equal 3, url.top_user_agents.count
+    assert_equal 3, url.top_user_agents.count
     assert_equal ["Chrome, OS X 10.5.3", "Firefox, OS X 10.5.3", "Safari, OS X 10.5.3"], url.top_user_agents
   end
 
