@@ -28,7 +28,7 @@ class CreateClientTest < Minitest::Test
 
     assert_equal 1, PayloadRequest.count
     assert_equal 403, last_response.status
-    assert_equal "Thanks for the payload jumpstartlab!", last_response.body
+    assert_equal "Sorry jumpstartlab, you already submitted this payload", last_response.body
   end
 
   def test_a_payload_is_empty

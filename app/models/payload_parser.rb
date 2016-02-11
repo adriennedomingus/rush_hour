@@ -3,6 +3,7 @@ class PayloadParser
   attr_reader :payload_hash
 
   def initialize(payload, identifier)
+    @payload = payload
     parsed_payload = JSON.parse(payload)
     payload_into_hash(parsed_payload, identifier)
     @identifier = identifier
@@ -23,6 +24,7 @@ class PayloadParser
       :environment  => Environment.find_or_create_by(os: parse_user_agent(parsed_payload["userAgent"]).os, browser: parse_user_agent(parsed_payload["userAgent"]).browser),
       :resolution   => Resolution.find_or_create_by(width: parsed_payload["resolutionWidth"], height: parsed_payload["resolutionHeight"]),
       :ip           => Ip.find_or_create_by(address: parsed_payload["ip"]),
-      :client     => Client.find_by(identifier: identifier)}
+      :client       => Client.find_by(identifier: identifier),
+      :sha        => Digest::SHA1.hexdigest(@payload)}
   end
 end

@@ -8,11 +8,10 @@ module RushHour
       payload_parser = PayloadParser.new(params[:payload], identifier).payload_hash
       payload = PayloadRequest.new(payload_parser)
 
-      # unique_key = Digest::SHA1.hexdigest(params[:payload])
-      #add in hexdigest validation to payload parser
-
-
-      if Client.find_by(identifier: identifier) == nil
+      if PayloadRequest.find_by(sha: payload.sha)
+        status 403
+        body "Sorry #{identifier}, you already submitted this payload"
+      elsif Client.find_by(identifier: identifier) == nil
         status 403
         body "Sorry, it looks like you haven't registered your app #{identifier}"
       elsif payload.save

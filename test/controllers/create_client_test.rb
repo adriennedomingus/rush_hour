@@ -30,7 +30,7 @@ class CreateClientTest < Minitest::Test
   end
 
   def test_missing_one_parameter_request
-    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>""}
+    post '/sources', {"identifier"=>"adam", "rootUrl"=>""}
 
     response_body = "Root url can't be blank"
 
