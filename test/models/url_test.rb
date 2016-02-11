@@ -19,7 +19,7 @@ class UrlTest < MiniTest::Test
     {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
     requested_at:  "2013-02-16 20:00:00 -0700",
     responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
+    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
     request_type:  RequestType.find_or_create_by(verb: "POST"),
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
     environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
@@ -34,7 +34,7 @@ class UrlTest < MiniTest::Test
     referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
     request_type:  RequestType.find_or_create_by(verb: "POST"),
     event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Safari"),
+    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
     resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
     ip: Ip.find_or_create_by(address: "63.29.38.211")}
   end
@@ -111,9 +111,11 @@ class UrlTest < MiniTest::Test
   def test_verbs
     PayloadRequest.create(payload1)
     PayloadRequest.create(payload2)
+    PayloadRequest.create(payload3)
+  
     url = Url.find(1)
 
-    assert_equal ['GET', 'POST'], url.verbs
+    assert_equal ['POST', 'GET'], url.verbs
   end
 
   def test_top_referers
@@ -126,9 +128,8 @@ class UrlTest < MiniTest::Test
 
     url = Url.find(1)
 
-    assert_equal 3, url.top_referrers.count
-    assert_equal ["http://jumpstartlab.com/contact", "http://jumpstartlab.com/home",
-      "http://jumpstartlab.com"], url.top_referrers
+    assert_equal 2, url.top_referrers.count
+    assert_equal ["http://jumpstartlab.com", "http://jumpstartlab.com/contact"], url.top_referrers
   end
 
   def test_top_user_agents
@@ -141,8 +142,8 @@ class UrlTest < MiniTest::Test
 
     url = Url.find(1)
 
-    # assert_equal 3, url.top_user_agents.count
-    assert_equal ["Chrome, OS X 10.5.3", "Firefox, OS X 10.5.3", "Safari, OS X 10.5.3"], url.top_user_agents
+    assert_equal 2, url.top_user_agents.count
+    assert_equal ["Firefox, OS X 10.5.3", "Chrome, OS X 10.5.3"], url.top_user_agents
   end
 
   def test_top_urls_in_order
@@ -157,5 +158,4 @@ class UrlTest < MiniTest::Test
 
     assert_equal result, Url.in_order
   end
-
 end

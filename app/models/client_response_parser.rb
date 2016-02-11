@@ -1,4 +1,4 @@
-class ClientParser
+class ClientResponseParser
 
   def initialize(params)
     data = {:root_url => params[:rootUrl],
@@ -6,7 +6,7 @@ class ClientParser
     @client = Client.new(data)
   end
 
-  def parse_paths
+  def server_response
     if @client.save
       status = 200
       body = "{\"identifier\":\"#{@client.identifier}\"}"
