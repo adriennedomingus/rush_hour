@@ -45,7 +45,7 @@ module RushHour
 
     get '/events/:client/:event_name' do |client_name, event_name|
       client = Client.find_by(identifier: client_name)
-      #Do we need another sad path for if the client can't be found
+      #Do we need another sad path for if the client can't be found?
       if client.event_names.find_by(:event => event_name) == nil
         redirect "/#{client_name}/events"
       else
