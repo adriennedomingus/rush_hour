@@ -1,0 +1,25 @@
+<h1>Your stats:</h1>
+<p>Average response time: <%= PayloadRequest.average_response_time %>
+<p>Maximum response time: <%= PayloadRequest.maximum_response_time %>
+<p>Maximum response time: <%= PayloadRequest.minimum_response_time %>
+<p>Most frequent request type: <%= @client.request_types.most_frequent %></p>
+<p>All HTTP verbs: <% @client.request_types.in_order.each do |verb| %>
+    <%= verb %>
+    <% end %>
+</p>
+<p>All URLS from most to least frequent: <% @client.urls.in_order.each do |url| %>
+    <%= url %>
+  <% end %>
+</p>
+<p>Browsers used: <% @client.environments.browsers.each do |browser| %>
+    <%= browser %>
+  <% end %>
+</p>
+<p>OS used: <% @client.environments.os.each do |os| %>
+    <%= os %>
+  <% end %>
+</p>
+<p>Screen Resolutions used: <% @client.resolutions.all_resolutions.each do |resolution| %>
+    <%= resolution %>
+  <% end %>
+</p>

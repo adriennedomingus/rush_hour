@@ -17,12 +17,13 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      require "pry"
-      binding.pry
       if Client.find_by(identifier: identifier) == nil
         erb :client_not_found
       elsif Client.find_by(:identifier => identifier).payload_requests.all.empty?
         erb :no_payload_submitted
+      else
+        @client = Client.find_by(:identifier => identifier)
+        erb :payload_data
       end
     end
   end
