@@ -15,6 +15,12 @@ module RushHour
       status the_status
       body the_body
     end
-  end
 
+    get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
+      client = Client.find_by(identifier: identifier)
+      relative_path = "#{client.root_url}/#{relativepath}"
+      url = client.urls.find_by(path: relative_path)
+      erb :specific_url, locals: {url: url}
+    end
+  end
 end
