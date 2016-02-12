@@ -83,7 +83,7 @@ class EnvironmentTest < MiniTest::Test
     PayloadRequest.create(payload5)
     PayloadRequest.create(payload6)
 
-    result = ["Chrome",  "Firefox", "Safari"]
+    result = ["Chrome", "Safari", "Firefox"]
 
     assert_equal result, Environment.browsers
   end

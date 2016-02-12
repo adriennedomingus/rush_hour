@@ -4,10 +4,10 @@ class Environment < ActiveRecord::Base
   has_many :payload_requests
 
   def self.browsers
-    joins(:payload_requests).group("environments.browser").count.keys
+    joins(:payload_requests).group("environments.browser").order(count: :desc).count.keys
   end
 
   def self.os
-    joins(:payload_requests).group("environments.os").count.keys
+    joins(:payload_requests).group("environments.os").order(count: :desc).count.keys
   end
 end
