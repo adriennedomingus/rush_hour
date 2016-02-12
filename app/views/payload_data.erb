@@ -8,9 +8,11 @@
     <% end %>
 </p>
 <p>All URLS from most to least frequent: <% @client.urls.in_order.each do |url| %>
-    <%= url %>
+  <% path = url.split("/")[-1] %>
+    <%= link_to_url_statistics(path, url) %>
   <% end %>
 </p>
+
 <p>Browsers used: <% @client.environments.browsers.each do |browser| %>
     <%= browser %>
   <% end %>

@@ -26,5 +26,12 @@ module RushHour
         erb :payload_data
       end
     end
+
+    helpers do
+
+      def link_to_url_statistics(path, url)
+        "<a href= '<%= http://localhost:9393/sources/#{@client.identifier}/urls/#{path} %>' >#{url}</a>"
+      end
+    end
   end
 end
