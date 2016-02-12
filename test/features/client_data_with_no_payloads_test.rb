@@ -4,7 +4,7 @@ require 'tilt/erb'
 class ClientDataWithPayloadsandRegistrationTest < FeatureTest
   include TestHelpers
 
-  def test_accessing_client_data_with_no_payload
+  def test_accessing_client_data_with_valid_payload
 
     page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
 

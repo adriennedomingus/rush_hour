@@ -27,11 +27,23 @@ module RushHour
       end
     end
 
-    helpers do
+    get '/events' do
+      erb :event_index
+    end
 
+    get '/events/:event_name' do |event_name|
+      if EventName.find_by(:event => event_name) == nil
+        redirect '/events'
+      else
+        "hi"
+      end
+    end
+
+    helpers do
       def link_to_url_statistics(path, url)
         "<a href= '<%= http://localhost:9393/sources/#{@client.identifier}/urls/#{path} %>' >#{url}</a>"
       end
     end
+
   end
 end
