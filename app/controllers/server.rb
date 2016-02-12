@@ -26,7 +26,7 @@ module RushHour
         erb :payload_data
       end
     end
-    
+
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
       client = Client.find_by(identifier: identifier)
       relative_path = "#{client.root_url}/#{relativepath}"
@@ -42,11 +42,13 @@ module RushHour
       erb :event_index
     end
 
-    get '/events/:event_name' do |event_name|
-      if EventName.find_by(:event => event_name) == nil
+    get '/events/:client/:event_name' do |client, event_name|
+      @client = Client.find_by(identifier: client)
+      if @client.event_names.find_by(:event => event_name) == nil
         redirect '/events'
       else
-        "hi"
+        @event = @client.event_names.find_by(:event => event_name)
+        erb :hourly_breakdown
       end
     end
 
