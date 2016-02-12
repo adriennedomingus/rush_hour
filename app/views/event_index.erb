@@ -1,4 +1,3 @@
-<% @events = EventName.all %>
-<% @events.each do |event|%>
+<% @client.event_names.uniq.each do |event|%>
 <p><a href = "http://localhost:9393/events/<%= event.event %>"> <%= event.event %> </p>
 <% end %>

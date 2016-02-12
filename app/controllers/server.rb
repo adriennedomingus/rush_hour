@@ -38,16 +38,18 @@ module RushHour
       end
     end
 
-    get '/events' do
+    get '/:identifier/events' do |identifier|
+      @client = Client.find_by(identifier: identifier)
       erb :event_index
     end
 
     get '/events/:client/:event_name' do |client, event_name|
-      @client = Client.find_by(identifier: client)
-      if @client.event_names.find_by(:event => event_name) == nil
+      client = Client.find_by(identifier: client)
+      #Do we need another sad path for if the client can't be found
+      if client.event_names.find_by(:event => event_name) == nil
         redirect '/events'
       else
-        @event = @client.event_names.find_by(:event => event_name)
+        @event = client.event_names.find_by(:event => event_name)
         erb :hourly_breakdown
       end
     end
