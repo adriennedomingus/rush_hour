@@ -1,0 +1,5 @@
+<p>All URLS from most to least frequent: <% @client.urls.in_order.each do |url| %>
+  <% path = url.split("/")[-1] %>
+    <%= link_to_url_statistics(path, url) %>
+  <% end %>
+</p>

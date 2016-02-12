@@ -3,25 +3,8 @@
 <p>Maximum response time: <%= PayloadRequest.maximum_response_time %>
 <p>Maximum response time: <%= PayloadRequest.minimum_response_time %>
 <p>Most frequent request type: <%= @client.request_types.most_frequent %></p>
-<p>All HTTP verbs: <% @client.request_types.in_order.each do |verb| %>
-    <%= verb %>
-    <% end %>
-</p>
-<p>All URLS from most to least frequent: <% @client.urls.in_order.each do |url| %>
-  <% path = url.split("/")[-1] %>
-    <%= link_to_url_statistics(path, url) %>
-  <% end %>
-</p>
-
-<p>Browsers used: <% @client.environments.browsers.each do |browser| %>
-    <%= browser %>
-  <% end %>
-</p>
-<p>OS used: <% @client.environments.os.each do |os| %>
-    <%= os %>
-  <% end %>
-</p>
-<p>Screen Resolutions used: <% @client.resolutions.all_resolutions.each do |resolution| %>
-    <%= resolution %>
-  <% end %>
-</p>
+<%= erb :_http_verbs_show %>
+<%= erb :_url_show %>
+<%= erb :_browser_show %>
+<%= erb :_os_show %>
+<%= erb :_screen_resolution_show %>
