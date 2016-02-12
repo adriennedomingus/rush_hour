@@ -96,9 +96,7 @@ class EventNameTest < MiniTest::Test
     PayloadRequest.create(payload5)
     PayloadRequest.create(payload6)
 
-    result = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0,
-      9 => 1, 10 => 1, 11 => 0, 12 => 1, 13 => 0, 14 => 1, 15 => 0, 16 => 0,
-      17 => 0, 18 => 1, 19 => 0, 20 => 0, 21 => 1, 22 => 0, 23 => 0, 24 => 0}
+    result = {1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0, 8=>0, 9=>1, 10=>0, 11=>0, 12=>0, 13=>0, 14=>1, 15=>0, 16=>0, 17=>0, 18=>1, 19=>0, 20=>0, 21=>0, 22=>0, 23=>0, 24=>0}
 
     assert_equal result, EventName.find_by(:event => "socialLogin").by_hour
 
