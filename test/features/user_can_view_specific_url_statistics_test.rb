@@ -79,7 +79,7 @@ class UserCanViewSpecificUrlStatistics < FeatureTest
     client: Client.find_by(identifier: "testlab")}
   end
 
-  def test_task_creation_with_valid_attributes
+  def test_payload_stats_can_be_viewed_by_client
     page.driver.browser.post('/sources?identifier=testlab&rootUrl=http://testlab.com')
 
     PayloadRequest.create(payload1)
@@ -100,6 +100,17 @@ class UserCanViewSpecificUrlStatistics < FeatureTest
     assert page.has_content? "3 Most Popular Referrers: http://testlab.com"
     assert page.has_content? "Url Stats"
     assert page.has_content? "3 Most Popular User Agents: Chrome, OS X 10.5.3"
+  end
 
+  def test_missing_url_gives_sad_path
+    page.driver.browser.post('/sources?identifier=testlab&rootUrl=http://testlab.com')
+
+    PayloadRequest.create(payload1)
+    PayloadRequest.create(payload2)
+    PayloadRequest.create(payload3)
+
+    visit '/sources/testlab/urls/nottest'
+
+    assert page.has_content? "Url (http://testlab.com/nottest) has not been requested."
   end
 end

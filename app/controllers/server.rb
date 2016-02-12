@@ -19,8 +19,12 @@ module RushHour
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
       client = Client.find_by(identifier: identifier)
       relative_path = "#{client.root_url}/#{relativepath}"
-      url = client.urls.find_by(path: relative_path)
-      erb :specific_url, locals: {url: url}
+      if client.urls.find_by(path: relative_path) == nil
+        "Url (#{relative_path}) has not been requested."
+      else
+        url = client.urls.find_by(path: relative_path)
+        erb :specific_url, locals: {url: url}
+      end
     end
   end
 end
