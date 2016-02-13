@@ -1,3 +1,7 @@
-<% @event.by_hour.each do |hour, hits| %>
- <p><%= "Hour #{hour}: #{hits} hits" %></p>
-<% end %>
+<div class="container">
+  <h4>Total hits: <%= @event.by_hour.values.reduce(:+) %></h4>
+  <h4>Hits by Hour</h4>
+  <% @event.by_hour.each do |hour, hits| %>
+   <p><%= "Hour #{hour}: #{hits} hits" %></p>
+  <% end %>
+</div>
