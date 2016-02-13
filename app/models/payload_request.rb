@@ -8,7 +8,7 @@ class PayloadRequest < ActiveRecord::Base
             :request_type_id,
             :referral_id,
             :resolution_id,
-            # :client_id,
+            :client_id,
             presence: true
 
   belongs_to :url
@@ -31,4 +31,5 @@ class PayloadRequest < ActiveRecord::Base
   def self.minimum_response_time
     minimum(:responded_in)
   end
+
 end

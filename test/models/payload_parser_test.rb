@@ -4,6 +4,7 @@ class PayloadParserTest < MiniTest::Test
   include TestHelpers
 
   def test_payload_parser_parses
+    create_client
     payload = {
     "url":"http://jumpstartlab.com/blog",
     "requestedAt":"2013-02-16 21:38:28 -0700",
@@ -18,7 +19,7 @@ class PayloadParserTest < MiniTest::Test
     "ip":"63.29.38.211"
     }.to_json
 
-    parsed_data = PayloadParser.new(payload, "don't fail")
+    parsed_data = PayloadParser.new(payload, "jumpstartlab")
 
     assert parsed_data.instance_of?(PayloadParser)
 
@@ -44,5 +45,7 @@ class PayloadParserTest < MiniTest::Test
     assert_equal "1280", payload_hash[:resolution].height
     assert_equal Ip, payload_hash[:ip].class
     assert_equal "63.29.38.211", payload_hash[:ip].address
+    assert_equal Client, payload_hash[:client].class
+    assert_equal "jumpstartlab", payload_hash[:client].identifier
   end
 end

@@ -7,15 +7,15 @@ class ClientCanSeeHourByHourBreakdownTest < FeatureTest
 
   def test_client_can_see_hour_by_hour_breakdown
     page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
-
-    PayloadRequest.create(payload_one)
-    PayloadRequest.create(payload_two)
-    PayloadRequest.create(payload_three)
+    create_15_payloads
 
     visit '/events/jumpstartlab/socialLogin'
 
-    assert page.has_content? "Hour 1: 2 hits"
-    assert page.has_content? "Hour 21: 1 hits"
-    assert page.has_content? "Hour 2: 0 hits"
+    assert page.has_content? "Hour 1: 3 hits"
+    assert page.has_content? "Hour 13: 1 hits"
+    assert page.has_content? "Hour 14: 1 hits"
+    assert page.has_content? "Hour 20: 3 hits"
+    assert page.has_content? "Hour 23: 1 hits"
+    assert page.has_content? "Hour 24: 0 hits"
   end
 end

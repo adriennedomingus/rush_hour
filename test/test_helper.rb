@@ -25,6 +25,10 @@ module TestHelpers
     DatabaseCleaner.clean
     super
   end
+
+  def create_client
+    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  end
 end
 
 class FeatureTest < Minitest::Test

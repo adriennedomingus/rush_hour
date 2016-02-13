@@ -7,20 +7,18 @@ class ClientDataWithPayloadsandRegistrationTest < FeatureTest
 
   def test_accessing_client_data_with_valid_payload
     page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
-
-    PayloadRequest.create(payload_one)
-    PayloadRequest.create(payload_two)
-    PayloadRequest.create(payload_three)
+    create_15_payloads
 
     visit '/sources/jumpstartlab'
-    assert page.has_content? "Average response time: 45"
+
+    assert page.has_content? "Average response time: 33.93"
     assert page.has_content? "Maximum response time: 60"
-    assert page.has_content? "Maximum response time: 30"
-    assert page.has_content? "Most frequent request type: GET"
-    assert page.has_content? "All HTTP verbs: GET POST"
-    assert page.has_content? "All URLS from most to least frequent: http://jumpstartlab.com/blog http://jumpstartlab.com/about"
-    assert page.has_content? "Browsers used: Chrome Safari"
-    assert page.has_content? "OS used: OS X 10.6.3 OS X 10.5.3"
-    assert page.has_content? "Screen Resolutions used: 1920 x 1280 1080 x 9000"
+    assert page.has_content? "Maximum response time: 15"
+    assert page.has_content? "Most frequent request type: POST"
+    assert page.has_content? "All HTTP verbs: POST GET PUT"
+    assert page.has_content? "All URLS from most to least frequent: http://jumpstartlab.com/test http://jumpstartlab.com/blog http://jumpstartlab.com/about http://jumpstartlab.com"
+    assert page.has_content? "Browsers used: Chrome Safari Firefox"
+    assert page.has_content? "OS used: OS X 10.5.3 OS X 10.6.3"
+    assert page.has_content? "Screen Resolutions used: 1080 x 9000 1920 x 1280 4400 x 8800"
   end
 end
