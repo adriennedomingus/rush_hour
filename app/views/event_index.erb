@@ -1,5 +1,5 @@
 <div class="container">
-  <% @client.event_names.uniq.each do |event|%>
-    <p><a href = "http://localhost:9393/events/<%= @client.identifier %>/<%= event.event %>"> <%= event.event %> </p>
+  <% client.event_names.uniq.each do |event|%>
+    <p><a href = "http://localhost:9393/events/<%= client.identifier %>/<%= event.event %>"> <%= event.event %> </p>
   <% end %>
 </div>

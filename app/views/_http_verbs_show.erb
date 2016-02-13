@@ -1,5 +1,5 @@
 <div class="container">
-<p>All HTTP verbs: <% @client.request_types.in_order.each do |verb| %>
+<p>All HTTP verbs: <% client.request_types.in_order.each do |verb| %>
     <%= verb %>
     <% end %>
 </p>

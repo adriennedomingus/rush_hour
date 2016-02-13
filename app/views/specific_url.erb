@@ -1,11 +1,10 @@
 <div class="container">
   <h1>Url Stats</h1>
-
-  <p>Max Response Time: <%= @url.max_response_time %></p>
-  <p>Min Response Time: <%= @url.min_response_time %></p>
-  <p><%= erb :_url_response_times %></p>
-  <p>Average Response Time: <%= @url.avg_response_time %></p>
-  <p><%= erb :_url_verbs_used %></p>
-  <p><%= erb :_url_most_popular_referrers %></p>
-  <p><%= erb :_url_most_popular_user_agents %></p>
+  <p>Max Response Time: <%= url.max_response_time %></p>
+  <p>Min Response Time: <%= url.min_response_time %></p>
+  <%= erb :_url_response_times, locals: { url: url } %>
+  <p>Average Response Time: <%= url.avg_response_time %></p>
+  <%= erb :_url_verbs_used, locals: { url: url } %>
+  <%= erb :_url_most_popular_referrers, locals: { url: url } %>
+  <%= erb :_url_most_popular_user_agents, locals: { url: url } %>
 </div>

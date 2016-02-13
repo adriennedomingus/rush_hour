@@ -17,9 +17,8 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      @client = Client.find_by(:identifier => identifier)
-      file = PayloadDataResponseParser.new.server_response(identifier)
-      erb file
+      file, client = PayloadDataResponseParser.new(identifier).server_response
+      erb file, locals: { client: client }
     end
 
     get '/:identifier/delete' do
@@ -31,13 +30,13 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
-      file, @relative_path, @url = UrlPathResponseParser.new(identifier, relativepath).server_response
-      erb file
+      file, @relative_path, url = UrlPathResponseParser.new(identifier, relativepath).server_response
+      erb file, locals: { url: url }
     end
 
     get '/:identifier/events' do |identifier|
-      file, @client = EventIndexParser.new(identifier).server_response
-      erb file
+      file, client = EventIndexParser.new(identifier).server_response
+      erb file, locals: {client: client}
     end
 
     get '/events/:client/:event_name' do |client_name, event_name|
@@ -55,8 +54,8 @@ module RushHour
     end
 
     helpers do
-      def link_to_url_statistics(path, url)
-        "<a href= 'http://localhost:9393/sources/#{@client.identifier}/urls/#{path}' >#{url}</a>"
+      def link_to_url_statistics(client, path, url)
+        "<a href= 'http://localhost:9393/sources/#{client.identifier}/urls/#{path}' >#{url}</a>"
       end
 
       def singluar_or_plural_hits(hits)

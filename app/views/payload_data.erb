@@ -3,10 +3,10 @@
 <p>Average response time: <%= PayloadRequest.average_response_time %>
 <p>Maximum response time: <%= PayloadRequest.maximum_response_time %>
 <p>Maximum response time: <%= PayloadRequest.minimum_response_time %>
-<p>Most frequent request type: <%= @client.request_types.most_frequent %></p>
-<p><%=erb :_http_verbs_show %></p>
-<p><%=erb :_url_show %></p>
-<p><%=erb :_browser_show %></p>
-<p><%=erb :_os_show %></p>
-<p><%=erb :_screen_resolution_show %></p>
+<p>Most frequent request type: <%= client.request_types.most_frequent %></p>
+<p><%=erb :_http_verbs_show, locals: { client: client } %></p>
+<p><%=erb :_url_show, locals: { client: client } %></p>
+<p><%=erb :_browser_show, locals: { client: client } %></p>
+<p><%=erb :_os_show, locals: { client: client } %></p>
+<p><%=erb :_screen_resolution_show, locals: { client: client } %></p>
 </div>

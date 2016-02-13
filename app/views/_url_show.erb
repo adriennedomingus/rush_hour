@@ -1,7 +1,7 @@
 <div class="container">
-<p>All URLS from most to least frequent: <% @client.urls.in_order.each do |url| %>
+<p>All URLS from most to least frequent: <% client.urls.in_order.each do |url| %>
   <% path = url.split("/")[-1] %>
-    <%= link_to_url_statistics(path, url) %>
+    <%= link_to_url_statistics(client, path, url) %>
   <% end %>
 </p>
 </div>
