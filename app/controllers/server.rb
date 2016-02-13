@@ -31,38 +31,26 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
-      if !Client.exists?(identifier: identifier)
-        erb :client_not_found
-      else
-        client = Client.find_by(identifier: identifier)
-        relative_path = "#{client.root_url}/#{relativepath}"
-        if !client.urls.exists?(path: relative_path)
-          erb :unrequested_path, locals: {relative_path: relative_path}
-        else
-          url = client.urls.find_by(path: relative_path)
-          erb :specific_url, locals: {url: url}
-        end
-      end
+      file, @relative_path, @url = UrlPathResponseParser.new(identifier, relativepath).server_response
+      erb file
     end
 
     get '/:identifier/events' do |identifier|
-      @client = Client.find_by(identifier: identifier)
-      if @client == nil
-        erb :client_not_found
-      else
-        erb :event_index
-      end
+      file, @client = EventIndexParser.new(identifier).server_response
+      erb file
     end
 
     get '/events/:client/:event_name' do |client_name, event_name|
       client = Client.find_by(identifier: client_name)
-      if client == nil
+      if client != nil
+        event = client.event_names.find_by(:event => event_name)
+      end
+      if !Client.exists?(identifier: client_name)
         erb :client_not_found
       elsif !client.event_names.exists?(:event => event_name)
         redirect "/#{client_name}/events"
       else
-        @event = client.event_names.find_by(:event => event_name)
-        erb :hourly_breakdown
+        erb :hourly_breakdown, locals: { event: event }
       end
     end
 
@@ -75,6 +63,6 @@ module RushHour
         hits == 1 ? "hit" : "hits"
       end
     end
-    
+
   end
 end
