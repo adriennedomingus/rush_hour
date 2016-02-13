@@ -24,7 +24,6 @@ module RushHour
 
     get '/:identifier/delete' do
       #This just has a delete button
-
     end
 
     post '/:identifier/delete' do
