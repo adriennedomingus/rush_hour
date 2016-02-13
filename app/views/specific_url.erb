@@ -3,17 +3,9 @@
 
 <h3>Max Response Time: <%= url.max_response_time %></h3>
 <h3>Min Response Time: <%= url.min_response_time %></h3>
-<h3>Response Times: <% url.response_times.each do |x|%>
-                    <%= x  %>
-                    <% end %> </h3>
+<h3><%= erb :_url_response_times, locals: {url: url} %>
 <h3>Average Response Time: <%= url.avg_response_time %></h3>
-<h3>Verbs Used: <% url.verbs.each do |x| %>
-                <%= x %>
-                <% end %> </h3>
-<h3>3 Most Popular Referrers: <% url.top_referrers.each do |ref| %>
-                              <%= ref %>
-                              <% end %></h3>
-<h3>3 Most Popular User Agents: <% url.top_user_agents.each do |agent| %>
-                                                            <%= agent %>
-                                                            <% end %></h3>
+<h3><%= erb :_url_verbs_used, locals: {url: url} %>
+<h3><%= erb :_url_most_popular_referrers, locals: {url: url} %>
+<h3><%= erb :_url_most_popular_user_agents, locals: {url: url} %>	
 </div>
