@@ -49,7 +49,11 @@ module RushHour
 
     get '/:identifier/events' do |identifier|
       @client = Client.find_by(identifier: identifier)
-      erb :event_index
+      if @client == nil
+        erb :client_not_found
+      else
+        erb :event_index
+      end
     end
 
     get '/events/:client/:event_name' do |client_name, event_name|
@@ -66,7 +70,7 @@ module RushHour
 
     helpers do
       def link_to_url_statistics(path, url)
-        "<a href= '<%= http://localhost:9393/sources/#{@client.identifier}/urls/#{path} %>' >#{url}</a>"
+        "<a href= 'http://localhost:9393/sources/#{@client.identifier}/urls/#{path}' >#{url}</a>"
       end
     end
   end
