@@ -17,14 +17,9 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      if !Client.exists?(identifier: identifier)
-        erb :client_not_found
-      elsif Client.find_by(:identifier => identifier).payload_requests.all.empty?
-        erb :no_payload_submitted
-      else
-        @client = Client.find_by(:identifier => identifier)
-        erb :payload_data
-      end
+      @client = Client.find_by(:identifier => identifier)
+      file = PayloadDataResponseParser.new.server_response(identifier)
+      erb file
     end
 
     get '/:identifier/delete' do
