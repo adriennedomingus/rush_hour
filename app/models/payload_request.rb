@@ -8,6 +8,7 @@ class PayloadRequest < ActiveRecord::Base
             :request_type_id,
             :referral_id,
             :resolution_id,
+            # :client_id,
             presence: true
 
   belongs_to :url
