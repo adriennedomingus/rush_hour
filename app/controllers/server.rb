@@ -17,7 +17,7 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      if Client.find_by(identifier: identifier) == nil
+      if !Client.exists?(identifier: identifier)
         erb :client_not_found
       elsif Client.find_by(:identifier => identifier).payload_requests.all.empty?
         erb :no_payload_submitted
@@ -37,12 +37,12 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
-      client = Client.find_by(identifier: identifier)
-      if client == nil
+      if !Client.exists?(identifier: identifier)
         erb :client_not_found
       else
+        client = Client.find_by(identifier: identifier)
         relative_path = "#{client.root_url}/#{relativepath}"
-        if client.urls.find_by(path: relative_path) == nil
+        if !client.urls.exists?(path: relative_path)
           "Url (#{relative_path}) has not been requested."
         else
           url = client.urls.find_by(path: relative_path)
@@ -64,7 +64,7 @@ module RushHour
       client = Client.find_by(identifier: client_name)
       if client == nil
         erb :client_not_found
-      elsif client.event_names.find_by(:event => event_name) == nil
+      elsif !client.event_names.exists?(:event => event_name)
         redirect "/#{client_name}/events"
       else
         @event = client.event_names.find_by(:event => event_name)
