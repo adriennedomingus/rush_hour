@@ -27,6 +27,15 @@ module RushHour
       end
     end
 
+    get '/:identifier/delete' do
+      #This just has a delete button
+
+    end
+
+    post '/:identifier/delete' do
+      #This is what happens when the above button is submitted, and does all the stuff
+    end
+
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
       client = Client.find_by(identifier: identifier)
       relative_path = "#{client.root_url}/#{relativepath}"
@@ -45,8 +54,9 @@ module RushHour
 
     get '/events/:client/:event_name' do |client_name, event_name|
       client = Client.find_by(identifier: client_name)
-      #Do we need another sad path for if the client can't be found?
-      if client.event_names.find_by(:event => event_name) == nil
+      if client == nil
+        erb :client_not_found
+      elsif client.event_names.find_by(:event => event_name) == nil
         redirect "/#{client_name}/events"
       else
         @event = client.event_names.find_by(:event => event_name)
@@ -59,6 +69,5 @@ module RushHour
         "<a href= '<%= http://localhost:9393/sources/#{@client.identifier}/urls/#{path} %>' >#{url}</a>"
       end
     end
-
   end
 end
