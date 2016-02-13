@@ -37,7 +37,7 @@ module RushHour
         client = Client.find_by(identifier: identifier)
         relative_path = "#{client.root_url}/#{relativepath}"
         if !client.urls.exists?(path: relative_path)
-          "Url (#{relative_path}) has not been requested."
+          erb :unrequested_path, locals: {relative_path: relative_path}
         else
           url = client.urls.find_by(path: relative_path)
           erb :specific_url, locals: {url: url}
