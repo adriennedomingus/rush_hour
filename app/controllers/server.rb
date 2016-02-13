@@ -70,6 +70,11 @@ module RushHour
       def link_to_url_statistics(path, url)
         "<a href= 'http://localhost:9393/sources/#{@client.identifier}/urls/#{path}' >#{url}</a>"
       end
+
+      def singluar_or_plural_hits(hits)
+        hits == 1 ? "hit" : "hits"
+      end
     end
+    
   end
 end
