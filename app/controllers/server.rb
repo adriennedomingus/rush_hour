@@ -22,8 +22,8 @@ module RushHour
     end
 
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
-      file, relative_path, url = UrlPathResponseParser.new(identifier, relativepath).server_response
-      erb file, locals: { url: url, relative_path: relative_path }
+      file, relative_path, url, client = UrlPathResponseParser.new(identifier, relativepath).server_response
+      erb file, locals: { url: url, relative_path: relative_path, client: client}
     end
 
     get '/:identifier/events' do |identifier|

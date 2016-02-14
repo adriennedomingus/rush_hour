@@ -6,20 +6,20 @@ class Url < ActiveRecord::Base
   has_many :environments, through: :payload_requests
   has_many :request_types, through: :payload_requests
 
-  def max_response_time
-    payload_requests.maximum_response_time
+  def max_response_time(client)
+    payload_requests.maximum_response_time(client)
   end
 
-  def min_response_time
-    payload_requests.minimum_response_time
+  def min_response_time(client)
+    payload_requests.minimum_response_time(client)
   end
 
   def response_times
     payload_requests.pluck(:responded_in).sort.reverse.uniq
   end
 
-  def avg_response_time
-    payload_requests.average_response_time
+  def avg_response_time(client)
+    payload_requests.average_response_time(client)
   end
 
   def verbs

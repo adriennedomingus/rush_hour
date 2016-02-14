@@ -6,21 +6,21 @@ class UrlTest < MiniTest::Test
   include TestPayloads
 
   def test_max_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
     url = Url.find(1)
 
-    assert_equal 45, url.max_response_time
+    assert_equal 45, url.max_response_time(client)
   end
 
   def test_min_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
     url = Url.find(1)
 
-    assert_equal 30, url.min_response_time
+    assert_equal 30, url.min_response_time(client)
   end
 
   def test_response_time_list_longest_to_shortest
@@ -33,12 +33,12 @@ class UrlTest < MiniTest::Test
   end
 
   def test_avg_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
     url = Url.find(1)
 
-    assert_equal 34, url.avg_response_time.to_i
+    assert_equal 34, url.avg_response_time(client).to_i
   end
 
   def test_verbs

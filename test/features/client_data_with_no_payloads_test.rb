@@ -9,6 +9,6 @@ class ClientDataWithNoPayloads < FeatureTest
     create_client
 
     visit '/sources/jumpstartlab'
-    assert page.has_content? "You haven't submitted any paylaods"
+    assert page.has_content? "You haven't submitted any payloads"
   end
 end

@@ -61,23 +61,23 @@ class PayloadRequestTest < MiniTest::Test
   end
 
   def test_average_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
-    assert_equal 33, PayloadRequest.average_response_time.to_i
+    assert_equal 33, PayloadRequest.average_response_time(client).to_i
   end
 
   def test_maximum_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
-    assert_equal 60, PayloadRequest.maximum_response_time
+    assert_equal 60, PayloadRequest.maximum_response_time(client)
   end
 
   def test_minimum_response_time
-    create_client
+    client = create_client
     create_15_payloads
 
-    assert_equal 15, PayloadRequest.minimum_response_time
+    assert_equal 15, PayloadRequest.minimum_response_time(client)
   end
 end

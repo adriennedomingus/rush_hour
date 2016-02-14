@@ -12,9 +12,9 @@ class UserCanViewSpecificUrlStatistics < FeatureTest
     visit '/sources/jumpstartlab/urls/test'
 
     assert page.has_content? "Url Stats"
-    assert page.has_content? "Max Response Time: 37"
-    assert page.has_content? "Min Response Time: 30"
-    assert page.has_content? "Response Times: "
+    assert page.has_content? "Maximum Response Time: 37"
+    assert page.has_content? "Minimum Response Time: 30"
+    assert page.has_content? "Response Times: 37 35 33 30"
     assert page.has_content? "Average Response Time: 33.6666666666666667"
     assert page.has_content? "Verbs Used: GET"
     assert page.has_content? "3 Most Popular Referrers: http://jumpstartlab.com"

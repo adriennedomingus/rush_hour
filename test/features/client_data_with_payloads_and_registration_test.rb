@@ -12,7 +12,7 @@ class ClientDataWithPayloadsandRegistrationTest < FeatureTest
     visit '/sources/jumpstartlab'
     assert page.has_content? "Average response time: 33.9"
     assert page.has_content? "Maximum response time: 60"
-    assert page.has_content? "Maximum response time: 15"
+    assert page.has_content? "Minimum response time: 15"
     assert page.has_content? "Most frequent request type: POST"
     assert page.has_content? "All HTTP verbs: POST GET PUT"
     assert page.has_content? "All URLS from most to least frequent:  http://jumpstartlab.com/test http://jumpstartlab.com/blog http://jumpstartlab.com/about http://jumpstartlab.com"

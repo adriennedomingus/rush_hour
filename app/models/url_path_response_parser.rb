@@ -16,6 +16,6 @@ class UrlPathResponseParser
     else
       file = :specific_url
     end
-    [file, @relative_path, @url]
+    [file, @relative_path, @url, @client]
   end
 end
