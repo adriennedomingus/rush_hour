@@ -21,14 +21,6 @@ module RushHour
       erb file, locals: { client: client }
     end
 
-    get '/:identifier/delete' do
-      #This just has a delete button
-    end
-
-    post '/:identifier/delete' do
-      #This is what happens when the above button is submitted, and does all the stuff
-    end
-
     get '/sources/:identifier/urls/:relativepath' do |identifier, relativepath|
       file, relative_path, url = UrlPathResponseParser.new(identifier, relativepath).server_response
       erb file, locals: { url: url, relative_path: relative_path }
@@ -55,20 +47,19 @@ module RushHour
 
     get '/:identifier/delete' do |identifier|
       client = Client.find_by(identifier: identifier)
-
-      erb :delete_client, locals: {client: client }
+      if client == nil
+        redirect "/sources/#{identifier}"
+      else
+        erb :delete_client, locals: {client: client }
+      end
     end
 
     delete '/:identifier/delete' do |identifier|
       client = Client.find_by(identifier: identifier)
-      if client == nil
-        redirect "/sources/#{identifier}"
-      else
       # id = client.id
       # PayloadRequest.destroy_all("client_id = id")
-        Client.destroy(client.id)
-        erb :account_deleted
-      end
+      Client.destroy(client.id)
+      erb :account_deleted
     end
 
     helpers do
