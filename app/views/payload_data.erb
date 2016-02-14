@@ -1,8 +1,8 @@
 <div class="container">
 <h1>Your stats:</h1>
-<p>Average response time: <%= PayloadRequest.average_response_time %>
-<p>Maximum response time: <%= PayloadRequest.maximum_response_time %>
-<p>Maximum response time: <%= PayloadRequest.minimum_response_time %>
+<p>Average response time: <%= PayloadRequest.average_response_time(client) %>
+<p>Maximum response time: <%= PayloadRequest.maximum_response_time(client) %>
+<p>Maximum response time: <%= PayloadRequest.minimum_response_time(client) %>
 <p>Most frequent request type: <%= client.request_types.most_frequent %></p>
 <p><%=erb :_http_verbs_show, locals: { client: client } %></p>
 <p><%=erb :_url_show, locals: { client: client } %></p>

@@ -20,16 +20,16 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :event_name
   belongs_to :client
 
-  def self.average_response_time
-    average(:responded_in)
+  def self.average_response_time(client)
+    where(:client_id => client.id).average(:responded_in)
   end
 
-  def self.maximum_response_time
-    maximum(:responded_in)
+  def self.maximum_response_time(client)
+    where(:client_id => client.id).maximum(:responded_in)
   end
 
-  def self.minimum_response_time
-    minimum(:responded_in)
+  def self.minimum_response_time(client)
+    where(:client_id => client.id).minimum(:responded_in)
   end
 
 end
