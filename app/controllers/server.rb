@@ -56,8 +56,6 @@ module RushHour
 
     delete '/:identifier/delete' do |identifier|
       client = Client.find_by(identifier: identifier)
-      # id = client.id
-      # PayloadRequest.destroy_all("client_id = id")
       Client.destroy(client.id)
       erb :account_deleted
     end
@@ -71,6 +69,5 @@ module RushHour
         hits == 1 ? "hit" : "hits"
       end
     end
-
   end
 end
