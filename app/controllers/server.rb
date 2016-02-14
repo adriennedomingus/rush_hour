@@ -59,9 +59,11 @@ module RushHour
     end
 
     post '/:identifier/delete' do |identifier|
-      binding.pry
-      @client = Client.find_by(identifier: identifier)
-      Client.delete(@client.id)
+      client = Client.find_by(identifier: identifier)
+      id = client.id
+      PayloadRequest.delete_all("client_id = id")
+      #make sure all rows in all tables for each payload_req/client are deleted
+      Client.delete(client.id)
       erb :account_deleted
     end
 
