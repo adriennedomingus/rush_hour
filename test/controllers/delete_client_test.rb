@@ -24,25 +24,17 @@ class DeleteClientTest < Minitest::Test
 
   def test_client_can_delete_their_account_and_data
     post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    post '/sources', {"identifier"=>"testlab", "rootUrl"=>"http://testlab.com"}
+
     PayloadRequest.create(payload_one)
 
-    assert_equal 1, Client.count
+    assert_equal 2, Client.count
     assert_equal 1, PayloadRequest.count
+    # assert_equal 1, Url.count
+    delete '/jumpstartlab/delete'
 
-    post '/jumpstartlab/delete', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
-
-    assert_equal 0, Client.count
+    assert_equal 1, Client.count
     assert_equal 0, PayloadRequest.count
-  end
-
-  def test_client_cannot_delete_another_clients_data
-    skip
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-
-    assert_equal 1, Client.count
-
-    post '/jumpstartlab/delete', {"identifier"=>"adam", "rootUrl"=>""}
-
-    assert_equal 1, Client.count
+    # assert_equal 0, Url.count
   end
 end

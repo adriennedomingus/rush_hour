@@ -54,17 +54,22 @@ module RushHour
       end
     end
 
-    get '/:identifier/delete' do
-      erb :delete_client
+    get '/:identifier/delete' do |identifier|
+      client = Client.find_by(identifier: identifier)
+
+      erb :delete_client, locals: {client: client }
     end
 
-    post '/:identifier/delete' do |identifier|
+    delete '/:identifier/delete' do |identifier|
       client = Client.find_by(identifier: identifier)
-      id = client.id
-      PayloadRequest.delete_all("client_id = id")
-      #make sure all rows in all tables for each payload_req/client are deleted
-      Client.delete(client.id)
-      erb :account_deleted
+      if client == nil
+        redirect "/sources/#{identifier}"
+      else
+      # id = client.id
+      # PayloadRequest.destroy_all("client_id = id")
+        Client.destroy(client.id)
+        erb :account_deleted
+      end
     end
 
     helpers do
