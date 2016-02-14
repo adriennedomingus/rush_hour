@@ -54,13 +54,14 @@ module RushHour
       end
     end
 
-    get '/:identifier/delete' do |identifier|
-      @client = Client.find_by(identifier: identifier)
+    get '/:identifier/delete' do
       erb :delete_client
     end
 
-    post '/:identifier/delete' do
-      #This is what happens when the above button is submitted, and does all the stuff
+    post '/:identifier/delete' do |identifier|
+      binding.pry
+      @client = Client.find_by(identifier: identifier)
+      Client.delete(@client.id)
       erb :account_deleted
     end
 

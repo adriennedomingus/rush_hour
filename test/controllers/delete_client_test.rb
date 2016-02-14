@@ -10,7 +10,7 @@ class DeleteClientTest < Minitest::Test
   end
 
   def test_client_can_delete_their_account_and_data
-    Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
 
     assert_equal 1, Client.count
 
