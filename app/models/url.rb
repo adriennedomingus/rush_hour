@@ -15,7 +15,7 @@ class Url < ActiveRecord::Base
   end
 
   def response_times
-    payload_requests.pluck(:responded_in)
+    payload_requests.pluck(:responded_in).sort.reverse.uniq
   end
 
   def avg_response_time

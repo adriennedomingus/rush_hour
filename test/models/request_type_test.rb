@@ -1,102 +1,24 @@
 require_relative '../test_helper'
+require_relative '../test_payloads'
 
 class RequestTypeTest < MiniTest::Test
   include TestHelpers
-
-  def payload1
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
-    requested_at:  "2013-02-16 21:38:28 -0700",
-    responded_in:  37,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com"),
-    request_type:  RequestType.find_or_create_by(verb: "PUT"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
-
-  def payload2
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
-    requested_at:  "2013-02-16 20:00:00 -0700",
-    responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
-    request_type:  RequestType.find_or_create_by(verb: "POST"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
-
-  def payload3
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/blog"),
-    requested_at:  "2013-02-16 20:00:00 -0700",
-    responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
-    request_type:  RequestType.find_or_create_by(verb: "POST"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Safari"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
-
-  def payload4
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com"),
-    requested_at:  "2013-02-16 20:00:00 -0700",
-    responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
-    request_type:  RequestType.find_or_create_by(verb: "GET"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Firefox"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
-
-  def payload5
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
-    requested_at:  "2013-02-16 20:00:00 -0700",
-    responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/contact"),
-    request_type:  RequestType.find_or_create_by(verb: "GET"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
-
-  def payload6
-    {url:           Url.find_or_create_by(path: "http://jumpstartlab.com/about"),
-    requested_at:  "2013-02-16 20:00:00 -0700",
-    responded_in:  30,
-    referral:   Referral.find_or_create_by(path: "http://jumpstartlab.com/home"),
-    request_type:  RequestType.find_or_create_by(verb: "GET"),
-    event_name:    EventName.find_or_create_by(event: "socialLogin"),
-    environment:    Environment.find_or_create_by(os: "OS X 10.5.3", browser: "Chrome"),
-    resolution:    Resolution.find_or_create_by(width: "1080", height: "9000"),
-    ip: Ip.find_or_create_by(address: "63.29.38.211")}
-  end
+  include TestPayloads
 
   def test_all_http_verbs_in_order
-    PayloadRequest.create(payload1)
-    PayloadRequest.create(payload2)
-    PayloadRequest.create(payload3)
-    PayloadRequest.create(payload4)
-    PayloadRequest.create(payload5)
-    PayloadRequest.create(payload6)
+    create_client
+    create_15_payloads
 
-    result = ["GET", "POST", "PUT"]
+    result = ["POST", "GET", "PUT"]
 
     assert_equal result, RequestType.in_order
   end
 
   def test_most_frequent_request_type
-    PayloadRequest.create(payload1)
-    PayloadRequest.create(payload2)
-    PayloadRequest.create(payload3)
-    PayloadRequest.create(payload4)
-    PayloadRequest.create(payload5)
-    PayloadRequest.create(payload6)
-
-    result = "GET"
+    create_client
+    create_15_payloads
+    
+    result = "POST"
 
     assert_equal result, RequestType.most_frequent
   end
