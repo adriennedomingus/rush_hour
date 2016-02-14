@@ -66,7 +66,7 @@ class UrlTest < MiniTest::Test
     create_15_payloads
 
     url = Url.find(1)
-    result = ["Safari, OS X 10.6.3", "Chrome, OS X 10.5.3", "Safari, OS X 10.5.3"]
+    result = ["Chrome, OS X 10.5.3", "Safari, OS X 10.5.3", "Safari, OS X 10.6.3"]
 
     assert_equal 3, url.top_user_agents.count
     assert_equal result, url.top_user_agents

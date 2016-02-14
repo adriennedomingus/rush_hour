@@ -37,6 +37,6 @@ class Url < ActiveRecord::Base
   def top_user_agents
     environments.group(:browser, :os).order(count: :desc).limit(3).count.keys.map do |browser, os|
       "#{browser}, #{os}"
-    end
+    end.sort
   end
 end
