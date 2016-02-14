@@ -2,4 +2,5 @@
   <% client.event_names.uniq.each do |event|%>
     <p><a href = "http://localhost:9393/events/<%= client.identifier %>/<%= event.event %>"> <%= event.event %> </p>
   <% end %>
+  <h2><a href="/sources/<%= client.identifier %>">RETURN TO ALL <%= client.identifier.upcase %> STATS</a></h2>
 </div>

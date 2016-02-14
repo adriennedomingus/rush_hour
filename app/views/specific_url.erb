@@ -7,4 +7,5 @@
   <%= erb :_url_verbs_used, locals: { url: url } %>
   <%= erb :_url_most_popular_referrers, locals: { url: url } %>
   <%= erb :_url_most_popular_user_agents, locals: { url: url } %>
+  <h2><a href="/sources/<%= client.identifier %>">RETURN TO ALL <%= client.identifier.upcase %> STATS</a></h2>
 </div>

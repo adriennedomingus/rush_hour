@@ -41,7 +41,7 @@ module RushHour
       elsif !client.event_names.exists?(:event => event_name)
         redirect "/#{client_name}/events"
       else
-        erb :hourly_breakdown, locals: { event: event }
+        erb :hourly_breakdown, locals: { event: event, client: client }
       end
     end
 

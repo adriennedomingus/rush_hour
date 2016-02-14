@@ -4,4 +4,5 @@
   <% event.by_hour.each do |hour, hits| %>
    <p><%= "Hour #{hour}: #{hits} #{singluar_or_plural_hits(hits)}" %></p>
   <% end %>
+  <h2><a href="/sources/<%= client.identifier %>">RETURN TO ALL <%= client.identifier.upcase %> STATS</a></h2>
 </div>
