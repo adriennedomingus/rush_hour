@@ -54,6 +54,14 @@ module RushHour
       end
     end
 
+    get '/:identifier/delete' do
+      #This just has a delete button
+    end
+
+    post '/:identifier/delete' do
+      #This is what happens when the above button is submitted, and does all the stuff
+    end
+
     helpers do
       def link_to_url_statistics(path, url)
         "<a href= '<%= http://localhost:9393/sources/#{@client.identifier}/urls/#{path} %>' >#{url}</a>"
