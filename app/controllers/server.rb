@@ -53,6 +53,24 @@ module RushHour
       end
     end
 
+    get '/:identifier/delete' do |identifier|
+      client = Client.find_by(identifier: identifier)
+
+      erb :delete_client, locals: {client: client }
+    end
+
+    delete '/:identifier/delete' do |identifier|
+      client = Client.find_by(identifier: identifier)
+      if client == nil
+        redirect "/sources/#{identifier}"
+      else
+      # id = client.id
+      # PayloadRequest.destroy_all("client_id = id")
+        Client.destroy(client.id)
+        erb :account_deleted
+      end
+    end
+
     helpers do
       def link_to_url_statistics(client, path, url)
         "<a href= 'http://localhost:9393/sources/#{client.identifier}/urls/#{path}' >#{url}</a>"

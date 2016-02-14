@@ -1,7 +1,7 @@
 class Url < ActiveRecord::Base
   validates :path,  presence: true
 
-  has_many :payload_requests
+  has_many :payload_requests, :dependent => :destroy
   has_many :referrals, through: :payload_requests
   has_many :environments, through: :payload_requests
   has_many :request_types, through: :payload_requests
