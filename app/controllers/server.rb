@@ -10,6 +10,10 @@ module RushHour
       body the_body
     end
 
+    get '/createaccount' do
+      erb :create_account
+    end
+
     post '/sources' do
       the_status, the_body = ClientResponseParser.new(params).server_response
       status the_status
@@ -58,10 +62,6 @@ module RushHour
       client = Client.find_by(identifier: identifier)
       Client.destroy(client.id)
       erb :account_deleted
-    end
-
-    get '/createaccount' do
-      erb :create_account
     end
 
     helpers do
