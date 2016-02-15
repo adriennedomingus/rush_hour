@@ -20,6 +20,10 @@ module RushHour
       body the_body
     end
 
+    get '/allsources' do
+      erb :all_clients
+    end
+
     get '/sources/:identifier' do |identifier|
       file, client = PayloadDataResponseParser.new(identifier).server_response
       erb file, locals: { client: client }
