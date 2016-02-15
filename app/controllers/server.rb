@@ -53,6 +53,17 @@ module RushHour
       end
     end
 
+    get '/:identifier/update' do |identifier|
+      client = Client.find_by(identifier: identifier)
+      erb :update_client, locals: { client: client }
+    end
+
+    put '/:identifier/update' do |identifier|
+      client = Client.find_by(identifier: identifier)
+      client.update(identifier: params[:client][:identifier], root_url: params[:client][:rooturl])
+      redirect '/allsources'
+    end
+
     get '/:identifier/delete' do |identifier|
       if !Client.exists?(identifier: identifier)
         redirect "/sources/#{identifier}"

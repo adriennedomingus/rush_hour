@@ -1,0 +1,9 @@
+<div class="container">
+  <form action="/<%= client.identifier %>/update" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="text" name="client[identifier]" value="<%= client.identifier %>">
+    <input type="text" name="client[rooturl]" value="<%= client.root_url %>">
+    <input class="btn" type="submit" value="Submit">
+  </form>
+
+</div>
