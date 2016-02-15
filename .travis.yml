@@ -5,8 +5,8 @@ services:
 - postgresql
 script:
   - bundle exec rake db:test:prepare
-  - bundle 
+  - bundle
 addons:
   code_climate:
-      repo_token: ea6a8044592761381a22ecf161f17f5d0c8bc066aafe9c8f3295ef12e72d2b74
+      repo_token: 39c1f5f3fd70b493b73b819c4daccb3c775ffdd2e31ea04d8c35b76b13301650
 # cache: bundler
