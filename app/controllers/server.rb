@@ -68,6 +68,10 @@ module RushHour
       def singluar_or_plural_hits(hits)
         hits == 1 ? "hit" : "hits"
       end
+
+      def link_to_main_statistics(client)
+        "<a href='/sources/#{client.identifier}'>RETURN TO ALL #{client.identifier.upcase} STATS</a>"
+      end
     end
   end
 end

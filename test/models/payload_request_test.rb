@@ -26,24 +26,24 @@ class PayloadRequestTest < MiniTest::Test
     assert_equal "jumpstartlab", payload_request.client.identifier
   end
 
-  def test_parsed_payload_has_all_attributes
-    create_client
-
-    parsed_data = PayloadParser.new(unparsed_payload, "jumpstartlab").payload_hash
-
-    payload_request = PayloadRequest.create(parsed_data)
-
-    assert_equal 1, PayloadRequest.all.count
-    assert_equal "http://jumpstartlab.com/blog", payload_request.url.path
-    assert_equal "2013-02-16 21:38:28 -0700", payload_request.requested_at
-    assert_equal 37, payload_request.responded_in
-    assert_equal "http://jumpstartlab.com", payload_request.referral.path
-    assert_equal "GET", payload_request.request_type.verb
-    assert_equal "socialLogin", payload_request.event_name.event
-    assert_equal "OS X 10.8.2", payload_request.environment.os
-    assert_equal "Chrome", payload_request.environment.browser
-    assert_equal "63.29.38.211", payload_request.ip.address
-  end
+  # def test_parsed_payload_has_all_attributes
+  #   create_client
+  #
+  #   parsed_data = PayloadParser.new(unparsed_payload, "jumpstartlab").payload_hash
+  #
+  #   payload_request = PayloadRequest.create(parsed_data)
+  #
+  #   assert_equal 1, PayloadRequest.all.count
+  #   assert_equal "http://jumpstartlab.com/blog", payload_request.url.path
+  #   assert_equal "2013-02-16 21:38:28 -0700", payload_request.requested_at
+  #   assert_equal 37, payload_request.responded_in
+  #   assert_equal "http://jumpstartlab.com", payload_request.referral.path
+  #   assert_equal "GET", payload_request.request_type.verb
+  #   assert_equal "socialLogin", payload_request.event_name.event
+  #   assert_equal "OS X 10.8.2", payload_request.environment.os
+  #   assert_equal "Chrome", payload_request.environment.browser
+  #   assert_equal "63.29.38.211", payload_request.ip.address
+  # end
 
   def test_validation_works_with_missing_attribute
     create_client
