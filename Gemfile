@@ -7,6 +7,7 @@ gem 'sinatra-activerecord'
 gem 'rake'
 gem 'pry'
 gem 'useragent'
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   gem 'shotgun'
