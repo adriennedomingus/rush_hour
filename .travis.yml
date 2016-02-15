@@ -9,4 +9,4 @@ script:
 addons:
     code_climate:
         repo_token: 39c1f5f3fd70b493b73b819c4daccb3c775ffdd2e31ea04d8c35b76b13301650
-# cache: bundler
+cache: bundler
