@@ -104,6 +104,7 @@ DEPENDENCIES
   rack-test
   rake
   shotgun
+  simplecov
   sinatra
   sinatra-activerecord
   tux
