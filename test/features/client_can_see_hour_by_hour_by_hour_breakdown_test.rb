@@ -6,7 +6,6 @@ class ClientCanSeeHourByHourBreakdownTest < FeatureTest
   include TestPayloads
 
   def test_client_can_see_hour_by_hour_breakdown
-    skip
     page.driver.browser.post('/sources?identifier=jumpstartlab&rooturl=http://jumpstartlab.com')
     create_15_payloads
 
