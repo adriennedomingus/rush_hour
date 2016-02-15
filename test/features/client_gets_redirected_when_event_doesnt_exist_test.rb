@@ -6,7 +6,7 @@ class ClientRedirectedWhenEventDoesntExistTest < FeatureTest
   include TestPayloads
 
   def test_client_gets_redirected_when_event_deosnt_exist
-    page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
+    page.driver.browser.post('/sources?identifier=jumpstartlab&rooturl=http://jumpstartlab.com')
     create_15_payloads
 
     visit '/events/jumpstartlab/nonexistantEvent'

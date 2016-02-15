@@ -46,10 +46,10 @@ module RushHour
     end
 
     get '/:identifier/delete' do |identifier|
-      client = Client.find_by(identifier: identifier)
-      if client == nil
+      if !Client.exists?(identifier: identifier)
         redirect "/sources/#{identifier}"
       else
+        client = Client.find_by(identifier: identifier)
         erb :delete_client, locals: {client: client }
       end
     end
@@ -58,6 +58,10 @@ module RushHour
       client = Client.find_by(identifier: identifier)
       Client.destroy(client.id)
       erb :account_deleted
+    end
+
+    get '/createaccount' do
+      erb :create_account
     end
 
     helpers do

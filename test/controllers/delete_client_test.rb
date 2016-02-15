@@ -11,8 +11,8 @@ class DeleteClientTest < Minitest::Test
   end
 
   def test_client_can_delete_their_account_and_data
-    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
-    post '/sources', {"identifier"=>"testlab", "rootUrl"=>"http://testlab.com"}
+    post '/sources', {"identifier"=>"jumpstartlab", "rooturl"=>"http://jumpstartlab.com"}
+    post '/sources', {"identifier"=>"testlab", "rooturl"=>"http://testlab.com"}
 
     PayloadRequest.create(payload1)
 

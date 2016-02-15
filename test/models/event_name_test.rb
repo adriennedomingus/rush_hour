@@ -15,6 +15,7 @@ class EventNameTest < MiniTest::Test
   end
 
   def test_events_by_hour
+    skip
     create_client
     create_15_payloads
 

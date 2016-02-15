@@ -1,7 +1,7 @@
 class ClientResponseParser
 
   def initialize(params)
-    data = {:root_url => params[:rootUrl],
+    data = {:root_url => params[:rooturl],
             :identifier => params[:identifier]}
     @client = Client.new(data)
   end

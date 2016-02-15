@@ -10,7 +10,7 @@ class CreateClientTest < Minitest::Test
   end
 
   def test_successful_request
-    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    post '/sources', {"identifier"=>"jumpstartlab", "rooturl"=>"http://jumpstartlab.com"}
 
     response_body = "{\"identifier\":\"jumpstartlab\"}"
 
@@ -20,7 +20,7 @@ class CreateClientTest < Minitest::Test
   end
 
   def test_missing_parameters_request
-    post '/sources', {"identifier"=>"", "rootUrl"=>""}
+    post '/sources', {"identifier"=>"", "rooturl"=>""}
 
     response_body = "Identifier can't be blank, Root url can't be blank"
 
@@ -30,7 +30,7 @@ class CreateClientTest < Minitest::Test
   end
 
   def test_missing_one_parameter_request
-    post '/sources', {"identifier"=>"adam", "rootUrl"=>""}
+    post '/sources', {"identifier"=>"adam", "rooturl"=>""}
 
     response_body = "Root url can't be blank"
 
@@ -44,7 +44,7 @@ class CreateClientTest < Minitest::Test
 
     response_body = "Identifier has already been taken"
 
-    post '/sources', {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    post '/sources', {"identifier"=>"jumpstartlab", "rooturl"=>"http://jumpstartlab.com"}
     assert_equal 1, Client.count
     assert_equal 403, last_response.status
     assert_equal response_body, last_response.body
