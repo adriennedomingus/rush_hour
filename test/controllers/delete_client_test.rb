@@ -18,9 +18,13 @@ class DeleteClientTest < Minitest::Test
 
     assert_equal 2, Client.count
     assert_equal 1, PayloadRequest.count
+    assert_equal 1, Url.count
+    assert_equal 1, EventName.count
     delete '/jumpstartlab/delete'
 
     assert_equal 1, Client.count
     assert_equal 0, PayloadRequest.count
+    assert_equal 0, Url.count
+    assert_equal 0, EventName.count
   end
 end

@@ -11,13 +11,13 @@ class PayloadRequest < ActiveRecord::Base
             :client_id,
             presence: true
 
-  belongs_to :url
-  belongs_to :ip
-  belongs_to :referral
-  belongs_to :request_type
-  belongs_to :resolution
-  belongs_to :environment
-  belongs_to :event_name
+  belongs_to :url, :dependent => :destroy
+  belongs_to :ip, :dependent => :destroy
+  belongs_to :referral, :dependent => :destroy
+  belongs_to :request_type, :dependent => :destroy
+  belongs_to :resolution, :dependent => :destroy
+  belongs_to :environment, :dependent => :destroy
+  belongs_to :event_name, :dependent => :destroy
   belongs_to :client
 
   def self.average_response_time(client)
