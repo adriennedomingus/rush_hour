@@ -1,13 +1,14 @@
 <div class="container">
 <h1><%= client.identifier.upcase %> stats:</h1>
-<p>Average response time: <%= PayloadRequest.average_response_time(client) %>
-<p>Maximum response time: <%= PayloadRequest.maximum_response_time(client) %>
-<p>Minimum response time: <%= PayloadRequest.minimum_response_time(client) %>
-<p><a href="/<%= client.identifier %>/events">Hour by Hour Breakdown of Events</a></p>
-<p>Most frequent request type: <%= client.request_types.most_frequent %></p>
-<p><%=erb :_http_verbs_show, locals: { client: client } %></p>
-<p><%=erb :_url_show, locals: { client: client } %></p>
-<p><%=erb :_browser_show, locals: { client: client } %></p>
-<p><%=erb :_os_show, locals: { client: client } %></p>
-<p><%=erb :_screen_resolution_show, locals: { client: client } %></p>
+  <p>Average response time: <%= PayloadRequest.average_response_time(client) %>
+  <p>Maximum response time: <%= PayloadRequest.maximum_response_time(client) %>
+  <p>Minimum response time: <%= PayloadRequest.minimum_response_time(client) %>
+  <p><a href="/<%= client.identifier %>/events">Hour by Hour Breakdown of Events</a></p>
+  <p>Most frequent request type: <%= client.request_types.most_frequent %></p>
+  <p><%=erb :_http_verbs_show, locals: { client: client } %></p>
+  <p><%=erb :_url_show, locals: { client: client } %></p>
+  <p><%=erb :_browser_show, locals: { client: client } %></p>
+  <p><%=erb :_os_show, locals: { client: client } %></p>
+  <p><%=erb :_screen_resolution_show, locals: { client: client } %></p>
 </div>
+  
