@@ -12,10 +12,10 @@ class ClientCanSeeHourByHourBreakdownTest < FeatureTest
     visit '/events/jumpstartlab/socialLogin'
 
     assert page.has_content? "Hour 1: 3 hits"
-    assert page.has_content? "Hour 13: 1 hit"
+    assert page.has_content? "Hour 13: 2 hit"
     assert page.has_content? "Hour 14: 1 hit"
     assert page.has_content? "Hour 20: 3 hits"
     assert page.has_content? "Hour 23: 1 hit"
-    assert page.has_content? "Hour 24: 0 hits"
+    assert page.has_content? "Hour 0: 0 hits"
   end
 end
