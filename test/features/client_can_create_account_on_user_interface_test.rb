@@ -8,7 +8,7 @@ class ClientCanCreateAccountOnUserInterfaceTest < FeatureTest
 
     visit '/createaccount'
     fill_in 'identifier', with: 'testidentifier'
-    fill_in 'rooturl', with: 'testidentifier.com'
+    fill_in 'rootUrl', with: 'testidentifier.com'
     click_button 'Submit'
 
     assert_equal 1, Client.count

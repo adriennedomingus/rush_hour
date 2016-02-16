@@ -6,7 +6,7 @@ class UserCanViewSpecificUrlStatistics < FeatureTest
   include TestPayloads
 
   def test_payload_stats_can_be_viewed_by_client
-    page.driver.browser.post('/sources?identifier=jumpstartlab&rooturl=http://jumpstartlab.com')
+    page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
     create_15_payloads
 
     visit '/sources/jumpstartlab/urls/test'

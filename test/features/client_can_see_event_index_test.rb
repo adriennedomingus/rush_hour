@@ -6,7 +6,7 @@ class ClientCanSeeEventIndexTest < FeatureTest
   include TestPayloads
 
   def test_event_index
-    page.driver.browser.post('/sources?identifier=jumpstartlab&rooturl=http://jumpstartlab.com')
+    page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
     create_15_payloads
 
     visit '/jumpstartlab/events'

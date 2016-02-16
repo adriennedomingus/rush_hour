@@ -4,7 +4,7 @@ class ClientCanUpdateAccountTest < FeatureTest
   include TestHelpers
 
   def test_client_update_account
-    page.driver.browser.post('/sources?identifier=jumpstartlab&rooturl=http://jumpstartlab.com')
+    page.driver.browser.post('/sources?identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
     assert_equal 'jumpstartlab', Client.all.first.identifier
 
     visit '/jumpstartlab/update'
