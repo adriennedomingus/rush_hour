@@ -19,9 +19,9 @@ class EventName < ActiveRecord::Base
     0=>0}
   end
 
-  def by_hour
+  def by_hour(client)
     all = hour_by_hour
-    payload_requests.pluck(:requested_at).map do |time_string|
+    payload_requests.where(:client_id => client.id).pluck(:requested_at).map do |time_string|
       Time.parse(time_string).hour
     end.each do |hour|
       all[hour] += 1
