@@ -79,6 +79,10 @@ module RushHour
       erb :account_deleted
     end
 
+    get '/testing_js' do
+      erb :testing_js
+    end
+
     helpers do
       def link_to_url_statistics(client, path, url)
         "<a href= 'http://localhost:9393/sources/#{client.identifier}/urls/#{path}' >#{url}</a>"
