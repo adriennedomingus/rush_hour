@@ -50,7 +50,6 @@ module RushHour
         redirect "/#{client_name}/events"
       else
         erb :hourly_breakdown, locals: { event: event, client: client }
-
       end
     end
 
