@@ -18,7 +18,9 @@ class EventNameTest < MiniTest::Test
     create_client
     create_15_payloads
 
+    client = Client.find(1)
+
     result = {1=>3, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0, 8=>0, 9=>0, 10=>1, 11=>1, 12=>1, 13=>2, 14=>1, 15=>0, 16=>0, 17=>0, 18=>0, 19=>0, 20=>3, 21=>1, 22=>0, 23=>1, 0=>0}
-    assert_equal result, EventName.find_by(:event => "socialLogin").by_hour
+    assert_equal result, EventName.find_by(:event => "socialLogin").by_hour(client)
   end
 end
